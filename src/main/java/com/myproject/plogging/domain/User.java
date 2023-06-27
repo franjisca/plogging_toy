@@ -2,6 +2,8 @@ package com.myproject.plogging.domain;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -12,12 +14,12 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "users")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Getter
 public class User {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @GeneratedValue
     private Long id;
-
 
     @Column(name = "user_id")
     private String userId;
@@ -39,4 +41,14 @@ public class User {
     private LocalDateTime enjoyDate;
 
 
+    @Builder
+    public User(String userId, String username, String nickname, String password, String email, String phone, String address) {
+        this.userId = userId;
+        this.username = username;
+        this.nickname = nickname;
+        this.password = password;
+        this.email = email;
+        this.phone = phone;
+        this.address = address;
+    }
 }
