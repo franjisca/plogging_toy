@@ -21,8 +21,9 @@ public class PhotoList {
     @Column(name = "photo_id")
     private Long id;
 
-    @Column(name = "user_id")
-    private Long userId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_no")
+    private User user;
 
     private String image;
 

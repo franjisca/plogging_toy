@@ -14,11 +14,14 @@ public class BeforeList {
     @Column(name = "before_id")
     private Long id;
 
-    @Column(name = "meeting_id")
-    private Long meetingId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "meeting_id")
+    private Meeting meeting;
 
-    @Column(name = "user_id")
-    private Long userId;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name ="user_no")
+    private User user;
 
 
 }

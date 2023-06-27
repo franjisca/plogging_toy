@@ -10,12 +10,12 @@ server:
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: "jdbc:mysql://localhost:3306/plogging?serverTimezone=Asia/Seoul"
-    username: "cos"
-    password: "cos1234"
+    url: jdbc:mysql://localhost:3306/plogging?serverTimezone=Asia/Seoul
+    username: cos
+    password: cos1234
   jpa:
     hibernate:
-      ddl-auto: create-drop #create update none
+      ddl-auto: create
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
     properties:

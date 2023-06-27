@@ -1,10 +1,7 @@
 package com.myproject.plogging.domain;
 
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
@@ -20,15 +17,19 @@ public class ChatText {
     @Column(name = "text_id")
     private Long id;
 
-    private Long writer;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_no")
+    private User user;
 
 
     @Column(name = "chatting_text")
     private String messages;
 
-    @Column(name="meeting_id")
-    private Long meetingId;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "chatting_id")
+    private Chatting chatting;
 
     @CreationTimestamp
     private LocalDateTime date;

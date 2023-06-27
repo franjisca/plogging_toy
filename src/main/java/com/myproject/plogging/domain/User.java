@@ -7,9 +7,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
-import java.sql.Date;
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -19,6 +19,7 @@ public class User {
 
     @Id
     @GeneratedValue
+    @Column(name ="user_no")
     private Long id;
 
     @Column(name = "user_id")
@@ -51,4 +52,21 @@ public class User {
         this.phone = phone;
         this.address = address;
     }
+
+    @OneToMany(mappedBy = "user")
+    private List<Meeting> meetingList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user")
+    private List<PhotoList> photoList =  new ArrayList<>();
+
+    @OneToMany(mappedBy = "user")
+    private List<Marker> markerList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user")
+    private List<BeforeList> beforeLists = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user")
+    private List<ChatText> chatTextsList = new ArrayList<>();
+
+
 }
