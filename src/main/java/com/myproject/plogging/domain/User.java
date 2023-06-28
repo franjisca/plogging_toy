@@ -37,9 +37,9 @@ public class User {
 
     private String address;
 
-    @CreationTimestamp
-    @Column(name = "enjoy_date", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
-    private LocalDateTime enjoyDate;
+    //@CreationTimestamp
+    //@Column(name = "signup_date", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    //private LocalDateTime signupDate;
 
 
     @Builder
