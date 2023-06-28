@@ -1,10 +1,8 @@
 package com.myproject.plogging.domain;
 
+import com.myproject.plogging.config.CustomBcryptEncoder;
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
@@ -27,6 +25,10 @@ public class User {
 
     private String username;
 
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     private String nickname;
 
     private String password;
@@ -42,12 +44,11 @@ public class User {
     //private LocalDateTime signupDate;
 
 
-    @Builder
     public User(String userId, String username, String nickname, String password, String email, String phone, String address) {
         this.userId = userId;
         this.username = username;
         this.nickname = nickname;
-        this.password = password;
+        this.password =  password;
         this.email = email;
         this.phone = phone;
         this.address = address;
@@ -67,6 +68,5 @@ public class User {
 
     @OneToMany(mappedBy = "user")
     private List<ChatText> chatTextsList = new ArrayList<>();
-
 
 }

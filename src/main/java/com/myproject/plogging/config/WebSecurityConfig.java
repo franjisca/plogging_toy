@@ -25,10 +25,12 @@ public class WebSecurityConfig{
         http.csrf((csrf) -> csrf.disable());
         http.authorizeHttpRequests((authorizeHttpRequests) ->
                         authorizeHttpRequests
-                                .requestMatchers("/user/**").authenticated()
+                                .requestMatchers("/mypage/**").authenticated()
                                 .anyRequest().permitAll()
                 ).formLogin(formLogin ->
                 formLogin.loginPage("/loginForm")
+                        .usernameParameter("userId")
+                        .passwordParameter("password")
                         .loginProcessingUrl("/login") // login 주소가 호출이 되면 시큐리티가 낚아채서 대신 로그인 진행
                         .defaultSuccessUrl("/")
                         .permitAll())

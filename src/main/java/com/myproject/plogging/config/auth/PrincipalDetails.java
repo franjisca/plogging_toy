@@ -1,6 +1,7 @@
 package com.myproject.plogging.config.auth;
 
 import com.myproject.plogging.domain.User;
+import com.myproject.plogging.exception.UserNotFoundException;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

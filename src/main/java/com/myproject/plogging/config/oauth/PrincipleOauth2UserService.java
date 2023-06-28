@@ -45,7 +45,7 @@ public class PrincipleOauth2UserService extends DefaultOAuth2UserService {
         String role = "USER";
         String nickname = username;
 
-       User user = userRepository.findByUsername(username);
+       User user = userRepository.findByUserid(providerId);
 
 
         if(user == null){
