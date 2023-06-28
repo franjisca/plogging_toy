@@ -1,11 +1,9 @@
 package com.myproject.plogging.domain;
 
-import com.myproject.plogging.config.CustomBcryptEncoder;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.CreationTimestamp;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,11 +37,7 @@ public class User {
 
     private String address;
 
-    //@CreationTimestamp
-    //@Column(name = "signup_date", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
-    //private LocalDateTime signupDate;
-
-
+    @Builder
     public User(String userId, String username, String nickname, String password, String email, String phone, String address) {
         this.userId = userId;
         this.username = username;
@@ -54,18 +48,29 @@ public class User {
         this.address = address;
     }
 
+    public void updateNickname(String nickname){ this.nickname = nickname;}
+    public void updatePassword(String password){ this.password = password;}
+    public void updateEmail(String email){ this.email = email;}
+    public void updatePhone(String nickname){ this.phone = phone;}
+    public void updateAddress(String address){ this.address = address;}
+
+    @JsonIgnore
     @OneToMany(mappedBy = "user")
     private List<Meeting> meetingList = new ArrayList<>();
 
+    @JsonIgnore
     @OneToMany(mappedBy = "user")
     private List<PhotoList> photoList =  new ArrayList<>();
 
+    @JsonIgnore
     @OneToMany(mappedBy = "user")
     private List<Marker> markerList = new ArrayList<>();
 
+    @JsonIgnore
     @OneToMany(mappedBy = "user")
     private List<BeforeList> beforeLists = new ArrayList<>();
 
+    @JsonIgnore
     @OneToMany(mappedBy = "user")
     private List<ChatText> chatTextsList = new ArrayList<>();
 

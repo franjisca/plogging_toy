@@ -21,7 +21,7 @@ public class PhotoList {
     @Column(name = "photo_id")
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "user_no")
     private User user;
 

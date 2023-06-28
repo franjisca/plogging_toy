@@ -18,7 +18,7 @@ public class ChatText {
     private Long id;
 
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "user_no")
     private User user;
 
@@ -27,7 +27,7 @@ public class ChatText {
     private String messages;
 
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "chatting_id")
     private Chatting chatting;
 

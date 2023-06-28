@@ -14,7 +14,7 @@ spring:
     password: cos1234
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
     properties:
@@ -33,4 +33,3 @@ spring:
             scope:
               - email
               - profile
-      # facebook:

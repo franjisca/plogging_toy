@@ -18,7 +18,7 @@ public class Chatting {
     @Column(name="chatting_id")
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "meeting_id")
     private Meeting meeting;
 
