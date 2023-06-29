@@ -57,9 +57,9 @@ public class Meeting {
     private List<Chatting> chattingList = new ArrayList<>();
 
     public void enjoyMeeting(Long id){
-        if(two == null) this.two = id;
-        else if(three == null) this.three = id;
-        else if(four == null) this.four = id;
+        if(two == null && two != id) this.two = id;
+        else if(three == null && three != id) this.three = id;
+        else if(four == null && four != id) this.four = id;
     }
 
 }
