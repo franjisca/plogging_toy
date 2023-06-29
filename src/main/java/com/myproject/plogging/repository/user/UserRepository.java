@@ -1,4 +1,4 @@
-package com.myproject.plogging.repository;
+package com.myproject.plogging.repository.user;
 
 import com.myproject.plogging.domain.User;
 import org.springframework.data.jpa.repository.JpaRepository;

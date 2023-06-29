@@ -14,7 +14,7 @@ import java.util.Map;
 @Data
 public class PrincipalDetails implements UserDetails, OAuth2User{
 
-    private User user; // 컴포지트 패턴
+    private User user;
     private Map<String ,Object> attributes;
 
     //일반 로그인에 사용
@@ -32,21 +32,6 @@ public class PrincipalDetails implements UserDetails, OAuth2User{
     public Map<String, Object> getAttributes() {
         return attributes;
     }
-
-    // 해당 유저의 권한을 리턴하는 곳
-/*    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        Collection<GrantedAuthority> collection = new ArrayList<>();
-        collection.add(new GrantedAuthority() {
-            @Override
-            public String getAuthority() {
-                return user.getRole();
-            }
-        });
-
-        collection.stream().forEach(c -> System.out.println(c.getAuthority()));
-        return collection;
-    }*/
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

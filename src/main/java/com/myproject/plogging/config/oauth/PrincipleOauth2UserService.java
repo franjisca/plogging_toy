@@ -6,7 +6,7 @@ import com.myproject.plogging.config.auth.PrincipalDetails;
 import com.myproject.plogging.config.oauth.provider.GoogleUserInfo;
 import com.myproject.plogging.config.oauth.provider.Oauth2UserInfo;
 import com.myproject.plogging.domain.User;
-import com.myproject.plogging.repository.UserRepository;
+import com.myproject.plogging.repository.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
@@ -45,8 +45,7 @@ public class PrincipleOauth2UserService extends DefaultOAuth2UserService {
         String role = "USER";
         String nickname = username;
 
-       User user = userRepository.findByUserid(providerId);
-
+       User user = userRepository.findByUserStrId(providerId);
 
         if(user == null){
             User saveUser = new User(providerId, username, username, password, email, "", "");
@@ -54,12 +53,9 @@ public class PrincipleOauth2UserService extends DefaultOAuth2UserService {
             System.out.println("저장할 아이디:" + saveUser);
             userRepository.save(saveUser);
 
-
-            // 회원가입 강제로 진행
             return new PrincipalDetails(saveUser, oAuth2User.getAttributes());
         }
 
         return super.loadUser(userRequest);
     }
-
 }

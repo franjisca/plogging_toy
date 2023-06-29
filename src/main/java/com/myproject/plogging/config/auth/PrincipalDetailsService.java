@@ -2,7 +2,7 @@ package com.myproject.plogging.config.auth;
 
 
 import com.myproject.plogging.domain.User;
-import com.myproject.plogging.repository.UserRepository;
+import com.myproject.plogging.repository.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -18,7 +18,7 @@ public class PrincipalDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String userId) throws UsernameNotFoundException {
 
-        User user = userRepository.findByUserid(userId);
+        User user = userRepository.findByUserStrId(userId);
 
         if(user == null) {
             throw new UsernameNotFoundException("user not found");

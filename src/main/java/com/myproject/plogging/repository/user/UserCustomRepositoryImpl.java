@@ -1,4 +1,4 @@
-package com.myproject.plogging.repository;
+package com.myproject.plogging.repository.user;
 
 import com.myproject.plogging.domain.User;
 import com.myproject.plogging.dto.user.LoginDto;
@@ -23,7 +23,7 @@ public class UserCustomRepositoryImpl implements UserCustomRepository{
     }
 
     @Override
-    public User findByUserid(String userId) {
+    public User findByUserStrId(String userId) {
         return jpaQueryFactory
                 .selectFrom(user)
                 .where(user.userId.eq(userId)).fetchOne();
