@@ -15,11 +15,13 @@ public class UserCustomRepositoryImpl implements UserCustomRepository{
 
     @Override
     public User findByUserIdAndPwd(LoginDto loginDto) {
-        return jpaQueryFactory.selectFrom(user)
+
+        User loginUser = jpaQueryFactory.selectFrom(user)
                 .where(
-                        user.userId.eq(loginDto.getUserId()),
-                        user.password.matches(loginDto.getPassword())
-                        ).fetchOne();
+                        user.userId.eq(loginDto.getUserId())
+                ).fetchOne();
+
+        return loginUser;
     }
 
     @Override

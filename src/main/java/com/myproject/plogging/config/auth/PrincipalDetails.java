@@ -2,7 +2,10 @@ package com.myproject.plogging.config.auth;
 
 import com.myproject.plogging.domain.User;
 import com.myproject.plogging.exception.UserNotFoundException;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.oauth2.core.user.OAuth2User;
@@ -12,17 +15,15 @@ import java.util.Collection;
 import java.util.Map;
 
 @Data
+@NoArgsConstructor
 public class PrincipalDetails implements UserDetails, OAuth2User{
 
     private User user;
     private Map<String ,Object> attributes;
-
-    //일반 로그인에 사용
     public PrincipalDetails(User user) {
         this.user = user;
     }
 
-    //oauth 로그인에 사용
     public PrincipalDetails(User user, Map<String, Object> attributes) {
         this.user = user;
         this.attributes = attributes;
@@ -65,8 +66,6 @@ public class PrincipalDetails implements UserDetails, OAuth2User{
 
     @Override
     public boolean isEnabled() {
-        // 사이트에서 1년 동안 회원이 로그인을 안 하면 휴면 계정으로 지정
-        // 현재 시간 - 로그인 시간 => 1년 초과시 false
         return true;
     }
 
