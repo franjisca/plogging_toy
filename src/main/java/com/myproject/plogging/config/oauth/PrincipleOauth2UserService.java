@@ -5,6 +5,7 @@ import com.myproject.plogging.config.CustomBcryptEncoder;
 import com.myproject.plogging.config.auth.PrincipalDetails;
 import com.myproject.plogging.config.oauth.provider.GoogleUserInfo;
 import com.myproject.plogging.config.oauth.provider.Oauth2UserInfo;
+import com.myproject.plogging.controller.UserController;
 import com.myproject.plogging.domain.User;
 import com.myproject.plogging.repository.user.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -24,6 +25,8 @@ public class PrincipleOauth2UserService extends DefaultOAuth2UserService {
 
     private final CustomBcryptEncoder customBcryptEncoder;
 
+    private final UserController userController;
+
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
 
         OAuth2User oAuth2User = super.loadUser(userRequest);
@@ -33,27 +36,29 @@ public class PrincipleOauth2UserService extends DefaultOAuth2UserService {
         Oauth2UserInfo oauth2UserInfo = null;
 
         if(userRequest.getClientRegistration().getRegistrationId().equals("google")){
-            System.out.println("구글 로그인 요청");
             oauth2UserInfo = new GoogleUserInfo(oAuth2User.getAttributes());
         }
 
         String provider = oauth2UserInfo.getProvider();
         String providerId = oauth2UserInfo.getProviderId();
-        String username = provider + "_" + providerId;
+        String username = oauth2UserInfo.getUsername();
         String password = customBcryptEncoder.encode("");
         String email = oauth2UserInfo.getEmail();
-        String role = "USER";
+        // String role = "USER";
         String nickname = username;
 
-       User user = userRepository.findByUserStrId(providerId);
+       User findUser = userRepository.findByUserStrId(providerId);
 
-        if(user == null){
-            User saveUser = new User(providerId, username, username, password, email, "", "");
+
+        if(findUser == null){
+            User saveUser = new User(providerId, username, nickname, password, email, "", "");
 
             System.out.println("저장할 아이디:" + saveUser);
             userRepository.save(saveUser);
+            PrincipalDetails principalDetails = new PrincipalDetails(saveUser, oAuth2User.getAttributes());
+            System.out.println("principal details: " + principalDetails);
 
-            return new PrincipalDetails(saveUser, oAuth2User.getAttributes());
+            return principalDetails;
         }
 
         return super.loadUser(userRequest);
