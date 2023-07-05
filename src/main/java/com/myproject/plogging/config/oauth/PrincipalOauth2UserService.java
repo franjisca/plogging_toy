@@ -1,14 +1,17 @@
 package com.myproject.plogging.config.oauth;
 
 
-import com.myproject.plogging.config.CustomBcryptEncoder;
+import com.myproject.plogging.config.custom.CustomBcryptEncoder;
 import com.myproject.plogging.config.auth.PrincipalDetails;
 import com.myproject.plogging.config.oauth.provider.GoogleUserInfo;
 import com.myproject.plogging.config.oauth.provider.Oauth2UserInfo;
-import com.myproject.plogging.controller.UserController;
 import com.myproject.plogging.domain.User;
 import com.myproject.plogging.repository.user.UserRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
 import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
@@ -19,19 +22,17 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class PrincipleOauth2UserService extends DefaultOAuth2UserService {
-
+@Slf4j
+public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
     private final UserRepository userRepository;
-
     private final CustomBcryptEncoder customBcryptEncoder;
 
-    private final UserController userController;
 
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
 
         OAuth2User oAuth2User = super.loadUser(userRequest);
 
-        System.out.println("UserRequest: " + super.loadUser(userRequest).getAttributes());
+        log.info("Attributes: {}", oAuth2User.getAttributes());
 
         Oauth2UserInfo oauth2UserInfo = null;
 
@@ -40,18 +41,17 @@ public class PrincipleOauth2UserService extends DefaultOAuth2UserService {
         }
 
         String provider = oauth2UserInfo.getProvider();
-        String providerId = oauth2UserInfo.getProviderId();
+        String userId = oAuth2User.getAttribute("sub") + "_" + oauth2UserInfo.getProviderId();
         String username = oauth2UserInfo.getUsername();
-        String password = customBcryptEncoder.encode("");
+        String password = customBcryptEncoder.encode(userId);
         String email = oauth2UserInfo.getEmail();
         // String role = "USER";
         String nickname = username;
 
-       User findUser = userRepository.findByUserStrId(providerId);
-
+       User findUser = userRepository.findByUserStrId(userId);
 
         if(findUser == null){
-            User saveUser = new User(providerId, username, nickname, password, email, "", "");
+            User saveUser = new User(userId, username, nickname, password, email, "", "");
 
             System.out.println("저장할 아이디:" + saveUser);
             userRepository.save(saveUser);
@@ -63,4 +63,5 @@ public class PrincipleOauth2UserService extends DefaultOAuth2UserService {
 
         return super.loadUser(userRequest);
     }
+
 }

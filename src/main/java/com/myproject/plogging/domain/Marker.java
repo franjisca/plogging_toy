@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 public class Marker {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "marker_id")
     private Long id;
 

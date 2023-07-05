@@ -1,6 +1,7 @@
 package com.myproject.plogging.domain;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
@@ -13,7 +14,7 @@ import java.time.LocalDateTime;
 public class ChatText {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "text_id")
     private Long id;
 
@@ -24,14 +25,13 @@ public class ChatText {
 
 
     @Column(name = "chatting_text")
-    private String messages;
-
+    private String chatText;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "chatting_id")
     private Chatting chatting;
 
     @CreationTimestamp
-    private LocalDateTime date;
+    private LocalDateTime createDate;
 
 }

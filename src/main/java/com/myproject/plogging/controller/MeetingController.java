@@ -2,6 +2,8 @@ package com.myproject.plogging.controller;
 
 
 import com.myproject.plogging.domain.Meeting;
+import com.myproject.plogging.dto.meeting.MeetingCreateDto;
+import com.myproject.plogging.dto.meeting.MeetingInfoDto;
 import com.myproject.plogging.service.MeetingService;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -17,18 +19,18 @@ public class MeetingController {
     private final MeetingService meetingService;
 
     @GetMapping("/list")
-    public List<Meeting> list() {
+    public List<MeetingInfoDto> list() {
         return meetingService.meetingList();
     }
 
-    @PostMapping("/create/{userNo}")
-    public Meeting createMeeting(@PathVariable("userNo") Long userNo, @RequestBody Meeting meeting) {
+    @PostMapping("/create")
+    public void createMeeting(@RequestBody MeetingCreateDto meetingCreateDto) {
+        meetingService.createMeeting(meetingCreateDto);
 
-        return meetingService.createMeeting(userNo, meeting);
     }
 
     @GetMapping("/info/{meetingNo}")
-    public Meeting unitInfo(@PathVariable("meetingNo") Long meetingNo) {
+    public MeetingInfoDto unitInfo(@PathVariable("meetingNo") Long meetingNo) {
         return meetingService.unitMeeting(meetingNo);
     }
 

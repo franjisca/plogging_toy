@@ -2,7 +2,10 @@ package com.myproject.plogging.dto.user;
 
 import lombok.*;
 
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class UserInfoChangeDto {
 
     private String nickname;

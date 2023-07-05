@@ -1,6 +1,7 @@
 package com.myproject.plogging.domain;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
@@ -13,6 +14,7 @@ public class BeforeList {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "before_id")
     private Long id;
+
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "meeting_id")

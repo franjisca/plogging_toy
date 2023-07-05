@@ -1,7 +1,7 @@
 package com.myproject.plogging.service;
 
 
-import com.myproject.plogging.config.CustomBcryptEncoder;
+import com.myproject.plogging.config.custom.CustomBcryptEncoder;
 import com.myproject.plogging.config.auth.PrincipalDetails;
 import com.myproject.plogging.domain.User;
 import com.myproject.plogging.dto.user.LoginDto;
@@ -9,13 +9,10 @@ import com.myproject.plogging.dto.user.UserInfoChangeDto;
 import com.myproject.plogging.exception.UserNotFoundException;
 import com.myproject.plogging.repository.user.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.*;
 
 @Service
 @RequiredArgsConstructor

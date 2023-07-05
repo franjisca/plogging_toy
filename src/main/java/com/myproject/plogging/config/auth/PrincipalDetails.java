@@ -1,25 +1,25 @@
 package com.myproject.plogging.config.auth;
 
 import com.myproject.plogging.domain.User;
-import com.myproject.plogging.exception.UserNotFoundException;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Map;
 
-@Data
 @NoArgsConstructor
+@Getter
+@Setter
 public class PrincipalDetails implements UserDetails, OAuth2User{
 
     private User user;
-    private Map<String ,Object> attributes;
+
+    private Map<String, Object> attributes;
+
+
+
     public PrincipalDetails(User user) {
         this.user = user;
     }

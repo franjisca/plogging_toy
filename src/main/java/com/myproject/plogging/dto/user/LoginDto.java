@@ -3,8 +3,9 @@ package com.myproject.plogging.dto.user;
 
 import lombok.*;
 
-@Data
 @NoArgsConstructor
+@Getter
+@Setter
 public class LoginDto {
 
     private String userId;
@@ -15,6 +16,5 @@ public class LoginDto {
         this.userId = userId;
         this.password = password;
     }
-
 
 }

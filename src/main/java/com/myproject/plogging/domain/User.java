@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Entity
@@ -14,7 +15,7 @@ import java.util.List;
 public class User {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name ="user_no")
     private Long id;
 
@@ -53,7 +54,6 @@ public class User {
     public void updateEmail(String email){ this.email = email;}
     public void updatePhone(String nickname){ this.phone = phone;}
     public void updateAddress(String address){ this.address = address;}
-
     @JsonIgnore
     @OneToMany(mappedBy = "user")
     private List<Meeting> meetingList = new ArrayList<>();

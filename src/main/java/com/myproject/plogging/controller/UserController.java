@@ -4,14 +4,22 @@ package com.myproject.plogging.controller;
 import com.myproject.plogging.config.auth.PrincipalDetails;
 import com.myproject.plogging.domain.User;
 import com.myproject.plogging.dto.user.LoginDto;
+import com.myproject.plogging.dto.user.UserDataDto;
 import com.myproject.plogging.dto.user.UserInfoChangeDto;
 import com.myproject.plogging.service.UserService;
+import jakarta.servlet.http.HttpServletResponse;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.resource.HttpResource;
+
+import java.net.http.HttpHeaders;
+import java.net.http.HttpResponse;
+import java.util.UUID;
 
 @RestController
 @RequiredArgsConstructor
@@ -20,33 +28,38 @@ public class UserController {
 
     private final UserService userService;
 
+    @GetMapping("/login-test")
+    public String test(@AuthenticationPrincipal PrincipalDetails details) {
+        System.out.println("principal details: "  + details);
+        return "성공";
+    }
+
     @PostMapping("/signup")
     public User signup(@RequestBody User user) {
         return userService.signup(user);
     }
 
-    @PostMapping("/login-page")
-    public User login(@RequestBody LoginDto loginDto) {
-        return userService.login(loginDto);
-    }
+    @PostMapping("/login")
+    public UserDataDto login(@RequestBody LoginDto loginDto, HttpServletResponse res) {
+        User loginUser = userService.login(loginDto);
 
-    @GetMapping("/oidc-principal")
-    public OidcUser loginOauth(@AuthenticationPrincipal PrincipalDetails principalDetails){
-
-        System.out.println("SecurityContextHolder: " + SecurityContextHolder.getContext().getAuthentication());
-
-        if(principalDetails != null) {
-
-        return (OidcUser) principalDetails;
-        }
-
-        return null;
+        res.addHeader("accessToken", "hi");
+        return new UserDataDto(
+                loginUser.getId(),
+                loginUser.getUserId(),
+                loginUser.getUsername(),
+                loginUser.getNickname(),
+                loginUser.getPassword(),
+                loginUser.getEmail(),
+                loginUser.getPhone(),
+                loginUser.getAddress()
+                );
     }
 
     @PatchMapping ("/info-change/{userId}")
-    public UserInfoChangeDto infoChange(@PathVariable("userId") String userId, @RequestBody UserInfoChangeDto dto){
-
+    public UserInfoChangeDto infoChange(@PathVariable("userId") String userId, UserInfoChangeDto dto) {
         return userService.infoChange(userId, dto);
     }
+
 
 }

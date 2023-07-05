@@ -5,9 +5,6 @@ server:
       charset: UTF-8
       enabled: true
       force: true
-logging:
-  level:
-    org.springframework.web.client.RestTemplate: DEBUG
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
