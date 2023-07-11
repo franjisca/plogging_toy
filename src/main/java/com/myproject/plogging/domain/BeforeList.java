@@ -4,6 +4,7 @@ package com.myproject.plogging.domain;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.NoArgsConstructor;
 
 @Entity
@@ -26,4 +27,9 @@ public class BeforeList {
     private User user;
 
 
+    @Builder
+    public BeforeList(Meeting meeting, User user) {
+        this.meeting = meeting;
+        this.user = user;
+    }
 }

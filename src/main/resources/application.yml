@@ -5,6 +5,11 @@ server:
       charset: UTF-8
       enabled: true
       force: true
+    multipart:
+      location: /Users/hanjiyeon/Desktop/문서폴더/project_front/toy/public/upload_image
+      maxFileSize: 50MB
+      maxRequestSize: 25MB
+
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver

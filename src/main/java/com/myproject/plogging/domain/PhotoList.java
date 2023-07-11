@@ -24,12 +24,14 @@ public class PhotoList {
     @Column(name = "photo_id")
     private Long id;
 
-    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_no")
     private User user;
 
     private String image;
+
+    private String storedFilename;
+    private long file_size;
 
     public void setImage(String image) {
         this.image = image;
@@ -38,10 +40,6 @@ public class PhotoList {
     @Column(columnDefinition = "integer default 0")
     private Integer likes;
 
-    public void addLikesCount(){
-        this.likes = likes++;
-
-    }
 
     @JsonIgnore
     @Column(name="upload_date", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
@@ -56,9 +54,17 @@ public class PhotoList {
     @Column(columnDefinition = "boolean default false")
     private boolean deleted;
 
-    public PhotoList(User user, String image) {
+    public PhotoList(User user, String storedFilename, String image) {
         this.likes = 0;
         this.user = user;
+        this.storedFilename = storedFilename;
         this.image = image;
     }
+
+    public void addLikesCount(){
+        this.likes = likes++;
+
+    }
+
+
 }

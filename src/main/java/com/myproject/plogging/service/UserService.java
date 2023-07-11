@@ -5,6 +5,7 @@ import com.myproject.plogging.config.custom.CustomBcryptEncoder;
 import com.myproject.plogging.config.auth.PrincipalDetails;
 import com.myproject.plogging.domain.User;
 import com.myproject.plogging.dto.user.LoginDto;
+import com.myproject.plogging.dto.user.UserDataDto;
 import com.myproject.plogging.dto.user.UserInfoChangeDto;
 import com.myproject.plogging.exception.UserNotFoundException;
 import com.myproject.plogging.repository.user.UserRepository;
@@ -24,8 +25,6 @@ public class UserService implements UserDetailsService {
 
     @Transactional
     public User signup(User user) {
-
-
 
         user.setPassword(bcryptEncoder.encode(user.getPassword()));
         User saveUser = userRepository.save(user);
@@ -98,5 +97,22 @@ public class UserService implements UserDetailsService {
         PrincipalDetails principalDetails = new PrincipalDetails(userRepository.findByUserStrId(userId));
         return principalDetails;
     }
+
+
+    public UserDataDto getMyInfo(String userId){
+        User findUser = userRepository.findByUserStrId(userId);
+
+        return new UserDataDto().builder()
+                .userId(findUser.getUserId())
+                .username(findUser.getUsername())
+                .nickname(findUser.getNickname())
+                .password(findUser.getPassword())
+                .email(findUser.getEmail())
+                .phone(findUser.getPhone())
+                .address(findUser.getAddress())
+                .build();
+    }
+
+
 
 }

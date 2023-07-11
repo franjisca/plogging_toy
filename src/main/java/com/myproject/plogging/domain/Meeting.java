@@ -55,10 +55,16 @@ public class Meeting {
 
     public void enjoyMeeting(Long id){
         if(two == null && two != id) this.two = id;
-        else if(three == null && three != id) this.three = id;
-        else if(four == null && four != id) this.four = id;
+        else if(three == null && three != id && two != id && four != id) this.three = id;
+        else if(four == null && four != id && two != id && three != id) this.four = id;
     }
 
+    public void leaveMeeting(Long id){
+        if(user.getId() == id) {this.user = null;}
+        if(two == id) {this.two = null;}
+        if(three == id) {this.three = null;}
+        if(four == id){ this.four = null;}
+    }
 
     @Builder
     public Meeting(User user, String title, String location, String period, int maxCount, String contents) {

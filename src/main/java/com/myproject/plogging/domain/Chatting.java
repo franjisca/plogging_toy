@@ -2,6 +2,7 @@ package com.myproject.plogging.domain;
 
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
@@ -23,8 +24,11 @@ public class Chatting {
     @JoinColumn(name = "meeting_id")
     private Meeting meeting;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "chatting")
     private List<ChatText> textList = new ArrayList<>();
 
-
+    public Chatting(Meeting meeting) {
+        this.meeting = meeting;
+    }
 }

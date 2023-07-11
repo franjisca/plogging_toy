@@ -44,16 +44,15 @@ public class UserController {
         User loginUser = userService.login(loginDto);
 
         res.addHeader("accessToken", "hi");
-        return new UserDataDto(
-                loginUser.getId(),
-                loginUser.getUserId(),
-                loginUser.getUsername(),
-                loginUser.getNickname(),
-                loginUser.getPassword(),
-                loginUser.getEmail(),
-                loginUser.getPhone(),
-                loginUser.getAddress()
-                );
+        return new UserDataDto().builder()
+                .userId(loginUser.getUserId())
+                .username(loginUser.getUsername())
+                .nickname(loginUser.getNickname())
+                .password(loginUser.getPassword())
+                .email(loginUser.getEmail())
+                .phone(loginUser.getPhone())
+                .address(loginUser.getAddress())
+                .build();
     }
 
     @PatchMapping ("/info-change/{userId}")

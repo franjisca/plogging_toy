@@ -1,14 +1,20 @@
 package com.myproject.plogging.service;
 
 
+import com.myproject.plogging.domain.BeforeList;
+import com.myproject.plogging.domain.Chatting;
 import com.myproject.plogging.domain.Meeting;
 import com.myproject.plogging.domain.User;
+import com.myproject.plogging.dto.beforelist.BeforeListDto;
 import com.myproject.plogging.dto.meeting.MeetingCreateDto;
 import com.myproject.plogging.dto.meeting.MeetingInfoDto;
 import com.myproject.plogging.exception.UserNotFoundException;
+import com.myproject.plogging.repository.beforelist.BeforeListRepository;
+import com.myproject.plogging.repository.chatting.ChattingRepository;
 import com.myproject.plogging.repository.meeting.MeetingRepository;
 import com.myproject.plogging.repository.user.UserRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,11 +27,16 @@ import java.util.stream.Stream;
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
+@Slf4j
 public class MeetingService {
 
     private final MeetingRepository meetingRepository;
 
     private final UserRepository userRepository;
+
+    private final ChattingRepository chattingRepository;
+
+    private final BeforeListRepository beforeListRepository;
 
     public List<MeetingInfoDto> meetingList() {
 
@@ -66,11 +77,17 @@ public class MeetingService {
                 .maxCount(dto.getMaxCount())
                 .build();
 
-        return meetingRepository.save(meeting);
+
+        Meeting saveMeeting = meetingRepository.save(meeting);
+
+        log.info("meeting number order: {}", saveMeeting.getId());
+
+        chattingRepository.save(new Chatting(meeting));
+
+        return saveMeeting;
     }
 
     public MeetingInfoDto unitMeeting(Long meetingNo) {
-
 
         Meeting meeting = meetingRepository.findById(meetingNo).orElseThrow(IllegalArgumentException::new);
 
@@ -94,10 +111,37 @@ public class MeetingService {
 
         User user = userRepository.findByUserStrId(userId);
 
-        Meeting meeting = meetingRepository.findById(meetingNo).orElseThrow(IllegalArgumentException::new);
+        boolean continueProcess = meetingRepository.alreadyEnjoyed(user.getId(), meetingNo);
+        if(!continueProcess){
+            Meeting meeting = meetingRepository.findById(meetingNo).orElseThrow(IllegalArgumentException::new);
+            //더티체킹
+            meeting.enjoyMeeting(user.getId());
+        }
 
-        //더티체킹
-        meeting.enjoyMeeting(user.getId());
+        throw new IllegalArgumentException("already exist.");
+    }
 
+    @Transactional
+    public void leaveMeeting(Long meetingId,String userId) {
+        User user = userRepository.findByUserStrId(userId);
+
+        if(user == null) {
+            throw new UserNotFoundException("유저 정보를 찾을 수 없습니다.");
+        }
+        Meeting meeting = meetingRepository.findById(meetingId).orElseThrow(IllegalArgumentException::new);
+
+        meeting.leaveMeeting(user.getId());
+
+        beforeListRepository.save(BeforeList
+                .builder()
+                .meeting(meeting)
+                .user(user)
+                .build());
+    }
+
+    public List<BeforeListDto> myBeforeList(String userId) {
+        User user = userRepository.findByUserStrId(userId);
+
+        return beforeListRepository.myBeforeList(user.getId());
     }
 }

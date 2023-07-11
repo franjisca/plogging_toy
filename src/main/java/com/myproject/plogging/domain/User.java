@@ -54,6 +54,7 @@ public class User {
     public void updateEmail(String email){ this.email = email;}
     public void updatePhone(String nickname){ this.phone = phone;}
     public void updateAddress(String address){ this.address = address;}
+
     @JsonIgnore
     @OneToMany(mappedBy = "user")
     private List<Meeting> meetingList = new ArrayList<>();
@@ -68,7 +69,7 @@ public class User {
 
     @JsonIgnore
     @OneToMany(mappedBy = "user")
-    private List<BeforeList> beforeLists = new ArrayList<>();
+    private List<BeforeList> beforeList = new ArrayList<>();
 
     @JsonIgnore
     @OneToMany(mappedBy = "user")

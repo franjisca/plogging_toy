@@ -36,6 +36,7 @@ public class MeetingController {
 
     @GetMapping("/enjoy/{meetingNo}/{userId}")
     public void enjoy(@PathVariable("userId") String userId, @PathVariable("meetingNo") Long meetingNo) {
+
         meetingService.enjoyMeeting(meetingNo, userId);
     }
 

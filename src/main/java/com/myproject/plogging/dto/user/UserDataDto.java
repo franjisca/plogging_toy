@@ -7,10 +7,7 @@ import lombok.*;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 public class UserDataDto {
-
-    private Long id;
 
     private String userId;
     private String username;
@@ -25,4 +22,18 @@ public class UserDataDto {
 
     private String address;
 
+
+    @Builder
+    public UserDataDto(String userId, String username,
+                       String nickname, String password,
+                       String email, String phone,
+                       String address) {
+        this.userId = userId;
+        this.username = username;
+        this.nickname = nickname;
+        this.password = password;
+        this.email = email;
+        this.phone = phone;
+        this.address = address;
+    }
 }
