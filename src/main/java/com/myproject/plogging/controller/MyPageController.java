@@ -6,6 +6,7 @@ import com.myproject.plogging.dto.beforelist.BeforeListDto;
 import com.myproject.plogging.dto.chatting.ChattingInfoDto;
 import com.myproject.plogging.dto.meeting.MeetingInfoDto;
 import com.myproject.plogging.dto.user.UserDataDto;
+import com.myproject.plogging.dto.user.UserInfoChangeDto;
 import com.myproject.plogging.service.ChattingService;
 import com.myproject.plogging.service.MeetingService;
 import com.myproject.plogging.service.UserService;
@@ -56,7 +57,10 @@ public class MyPageController {
         return meetingService.myBeforeList(userId);
     }
 
-
+    @PatchMapping ("/info-change/{userId}")
+    public UserInfoChangeDto infoChange(@PathVariable("userId") String userId, UserInfoChangeDto dto) {
+        return userService.infoChange(userId, dto);
+    }
 
 
 }

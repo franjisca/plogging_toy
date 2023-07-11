@@ -97,7 +97,6 @@ public class PhotoService {
     }
 
     public Long mainCount() {
-        log.info("main count: {}", photoListRepository.mainCount());
         return photoListRepository.mainCount();
     }
 

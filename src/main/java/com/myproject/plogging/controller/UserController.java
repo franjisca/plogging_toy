@@ -55,10 +55,5 @@ public class UserController {
                 .build();
     }
 
-    @PatchMapping ("/info-change/{userId}")
-    public UserInfoChangeDto infoChange(@PathVariable("userId") String userId, UserInfoChangeDto dto) {
-        return userService.infoChange(userId, dto);
-    }
-
 
 }
