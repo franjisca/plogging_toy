@@ -5,10 +5,12 @@ import com.myproject.plogging.domain.BeforeList;
 import com.myproject.plogging.dto.beforelist.BeforeListDto;
 import com.myproject.plogging.dto.chatting.ChattingInfoDto;
 import com.myproject.plogging.dto.meeting.MeetingInfoDto;
+import com.myproject.plogging.dto.photo.PhotoDto;
 import com.myproject.plogging.dto.user.UserDataDto;
 import com.myproject.plogging.dto.user.UserInfoChangeDto;
 import com.myproject.plogging.service.ChattingService;
 import com.myproject.plogging.service.MeetingService;
+import com.myproject.plogging.service.PhotoService;
 import com.myproject.plogging.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -26,15 +28,12 @@ public class MyPageController {
 
     private final MeetingService meetingService;
 
+    private final PhotoService photoService;
+
 
     @GetMapping("/my-info/{userId}")
     public UserDataDto getMyInfo(@PathVariable("userId") String userId){
         return userService.getMyInfo(userId);
-    }
-
-    @GetMapping("/count/{userId}")
-    public Long getMyPloggingCount(@PathVariable("userId") String useId){
-        return null;
     }
 
     @GetMapping("/meeting-list/{userId}")
@@ -62,5 +61,13 @@ public class MyPageController {
         return userService.infoChange(userId, dto);
     }
 
+    @GetMapping("/my-photos/{userId}")
+    public List<PhotoDto> myPhotoList(@PathVariable("userId") String userId) {
+        return photoService.userPhotoList(userId);
+    }
 
+    @GetMapping("/count/{userId}")
+    public Long myPloggingCount(@PathVariable("userId") String userId){
+        return photoService.myPloggingCount(userId);
+    }
 }

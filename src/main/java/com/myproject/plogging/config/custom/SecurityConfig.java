@@ -40,7 +40,7 @@ public class SecurityConfig {
         (authorizeHttpRequests) ->
                         authorizeHttpRequests
                                 .requestMatchers("/", "/**").permitAll()
-                                .requestMatchers("/mypage/**").authenticated()
+                                .requestMatchers("/my-page/**").authenticated()
                                 .anyRequest().permitAll()
                 )
                 .formLogin(

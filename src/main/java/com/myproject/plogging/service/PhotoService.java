@@ -101,6 +101,17 @@ public class PhotoService {
     }
 
 
+    public List<PhotoDto> userPhotoList(String userId) {
+
+        User findUser = userRepository.findByUserStrId(userId);
+
+        if(findUser == null) {
+            throw  new UserNotFoundException("유저 정보를 찾을 수 없습니다.");
+        }
+
+        return photoListRepository.userPhotoList(findUser.getId());
+    }
+
     private String createStoreFileName(String originalFileName) {
         String uuid = UUID.randomUUID().toString();
         String ext = extractExt(originalFileName);
@@ -112,4 +123,9 @@ public class PhotoService {
         return fileName.substring(index +1);
     }
 
+    public Long myPloggingCount(String userId) {
+
+        User findUser = userRepository.findByUserStrId(userId);
+        return photoListRepository.myPloggingCount(findUser.getId());
+    }
 }

@@ -2,6 +2,7 @@ package com.myproject.plogging.repository.photolist;
 
 
 import com.myproject.plogging.domain.PhotoList;
+import com.myproject.plogging.dto.photo.PhotoDto;
 import com.querydsl.core.types.ConstantImpl;
 import com.querydsl.core.types.dsl.DateTemplate;
 import com.querydsl.core.types.dsl.Expressions;
@@ -45,10 +46,34 @@ public class PhotoCustomRepositoryImpl implements PhotoCustomRepository{
     }
 
     @Override
+    public Long myPloggingCount(Long id) {
+        return queryFactory.selectFrom(photoList).where(photoList.user.id.eq(id)).fetchCount();
+    }
+
+    @Override
     public List<PhotoList> photoList() {
         return queryFactory
                 .selectFrom(photoList)
                 .orderBy(photoList.uploadDate.desc())
                 .fetch();
+    }
+
+    @Override
+    public List<PhotoDto> userPhotoList(Long userNo) {
+        List<PhotoList> data = queryFactory
+                .selectFrom(photoList)
+                .orderBy(photoList.uploadDate.desc())
+                .where(photoList.user.id.eq(userNo))
+                .fetch();
+
+        return data.stream().map(
+                photo -> new PhotoDto(
+                        photo.getId(), photo.getUser().getUserId(),
+                        photo.getImage(),
+                        photo.getStoredFilename(),
+                        photo.getLikes(),
+                        photo.getUploadDate()
+                )
+        ).toList();
     }
 }
