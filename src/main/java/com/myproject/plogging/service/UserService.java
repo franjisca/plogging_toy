@@ -6,6 +6,7 @@ import com.myproject.plogging.config.auth.PrincipalDetails;
 import com.myproject.plogging.domain.User;
 import com.myproject.plogging.dto.user.LoginDto;
 import com.myproject.plogging.dto.user.UserDataDto;
+import com.myproject.plogging.dto.user.UserIdDto;
 import com.myproject.plogging.dto.user.UserInfoChangeDto;
 import com.myproject.plogging.exception.UserNotFoundException;
 import com.myproject.plogging.repository.user.UserRepository;
@@ -111,6 +112,10 @@ public class UserService implements UserDetailsService {
                 .phone(findUser.getPhone())
                 .address(findUser.getAddress())
                 .build();
+    }
+
+    public UserIdDto findByUserNo(Long userNo) {
+        return userRepository.findByUserNo(userNo);
     }
 
 

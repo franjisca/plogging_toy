@@ -5,6 +5,7 @@ import com.myproject.plogging.config.auth.PrincipalDetails;
 import com.myproject.plogging.domain.User;
 import com.myproject.plogging.dto.user.LoginDto;
 import com.myproject.plogging.dto.user.UserDataDto;
+import com.myproject.plogging.dto.user.UserIdDto;
 import com.myproject.plogging.dto.user.UserInfoChangeDto;
 import com.myproject.plogging.service.UserService;
 import jakarta.servlet.http.HttpServletResponse;
@@ -53,6 +54,11 @@ public class UserController {
                 .phone(loginUser.getPhone())
                 .address(loginUser.getAddress())
                 .build();
+    }
+
+    @GetMapping("/find-id/{userNo}")
+    public UserIdDto findUserId(@PathVariable("userNo") Long userNo) {
+        return userService.findByUserNo(userNo);
     }
 
 

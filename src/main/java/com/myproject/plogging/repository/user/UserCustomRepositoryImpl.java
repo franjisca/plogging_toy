@@ -2,6 +2,7 @@ package com.myproject.plogging.repository.user;
 
 import com.myproject.plogging.domain.User;
 import com.myproject.plogging.dto.user.LoginDto;
+import com.myproject.plogging.dto.user.UserIdDto;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 
@@ -29,5 +30,17 @@ public class UserCustomRepositoryImpl implements UserCustomRepository{
         return jpaQueryFactory
                 .selectFrom(user)
                 .where(user.userId.eq(userId)).fetchOne();
+    }
+
+
+    @Override
+    public UserIdDto findByUserNo(Long userNo) {
+        String userId = jpaQueryFactory
+                .select(user.userId)
+                .from(user)
+                .where(user.id.eq(userNo))
+                .fetchOne();
+
+        return new UserIdDto(userId);
     }
 }

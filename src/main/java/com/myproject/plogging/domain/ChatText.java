@@ -4,6 +4,7 @@ package com.myproject.plogging.domain;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -23,7 +24,6 @@ public class ChatText {
     @JoinColumn(name = "user_no")
     private User user;
 
-
     @Column(name = "chatting_text")
     private String chatText;
 
@@ -34,4 +34,11 @@ public class ChatText {
     @CreationTimestamp
     private LocalDateTime createDate;
 
+
+    @Builder
+    public ChatText(User user, String chatText, Chatting chatting) {
+        this.user = user;
+        this.chatText = chatText;
+        this.chatting = chatting;
+    }
 }

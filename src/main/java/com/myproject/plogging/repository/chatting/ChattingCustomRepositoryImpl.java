@@ -25,7 +25,8 @@ public class ChattingCustomRepositoryImpl implements ChattingCustomRepository{
                         chatting.id, chatting.meeting.id
                         , meeting.maxCount, meeting.four
                         , meeting.three, meeting.two
-                        , meeting.user.id.as("userNo"), meeting.title
+                        , meeting.user.id.as("userNo")
+                        , meeting.title
                         , meeting.period
                 ).from(chatting).join(meeting).on(meeting.id.eq(chatting.meeting.id))
                 .where(
