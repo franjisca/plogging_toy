@@ -24,14 +24,3 @@ spring:
       hibernate:
         format_sql: true
         dialect: org.hibernate.dialect.MySQL8Dialect
-
-  security:
-    oauth2:
-      client:
-        registration:
-          google:
-            client-id: 512151987908-06dj2rnbgqadg4dq73ap2s9u04gf2lsq.apps.googleusercontent.com
-            client-secret: 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
-            scope:
-              - email
-              - profile
