@@ -6,10 +6,10 @@ import com.myproject.plogging.dto.user.UserIdDto;
 
 public interface UserCustomRepository {
 
-    public User findByUserIdAndPwd(LoginDto loginDto);
+    User findByUserIdAndPwd(LoginDto loginDto);
 
-    public User findByUserStrId(String userId);
+    User findByUserStrId(String userId);
 
-    public UserIdDto findByUserNo(Long userNo);
+    UserIdDto findByUserNo(Long userNo);
 
 }

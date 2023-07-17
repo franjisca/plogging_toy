@@ -78,9 +78,6 @@ public class PhotoService {
 
         User user = userRepository.findByUserStrId(userId);
 
-        System.out.println("user.getId(): " + user.getId());
-        System.out.println("photo.getUser().getId(): " + photo.getUser().getId());
-
         if(user.getId() != photo.getUser().getId()) throw new IllegalArgumentException();
 
         photoListRepository.delete(photo);
@@ -126,6 +123,11 @@ public class PhotoService {
     public Long myPloggingCount(String userId) {
 
         User findUser = userRepository.findByUserStrId(userId);
+
+        if(findUser == null) {
+            throw  new UserNotFoundException("유저 정보를 찾을 수 없습니다.");
+        }
+
         return photoListRepository.myPloggingCount(findUser.getId());
     }
 }

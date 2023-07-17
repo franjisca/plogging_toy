@@ -21,6 +21,11 @@ import static java.nio.file.attribute.FileTime.from;
 public class PhotoCustomRepositoryImpl implements PhotoCustomRepository{
 
     private final JPAQueryFactory queryFactory;
+    private final DateTemplate<String> findData = Expressions.dateTemplate(
+                String.class,
+                "DATE_FORMAT({0}, {1})",
+                photoList.uploadDate,
+                ConstantImpl.create("%Y-%m-%d"));
 
     @Override
     public void addCount(Long photoNo) {
@@ -31,11 +36,6 @@ public class PhotoCustomRepositoryImpl implements PhotoCustomRepository{
     }
 
     public Long mainCount() {
-        DateTemplate<String> findData = Expressions.dateTemplate(
-                String.class,
-                "DATE_FORMAT({0}, {1})",
-                photoList.uploadDate,
-                ConstantImpl.create("%Y-%m-%d"));
 
         return queryFactory
                 .selectFrom(photoList)
@@ -55,6 +55,7 @@ public class PhotoCustomRepositoryImpl implements PhotoCustomRepository{
         return queryFactory
                 .selectFrom(photoList)
                 .orderBy(photoList.uploadDate.desc())
+                .where(findData.eq(Expressions.currentDate().stringValue()))
                 .fetch();
     }
 
