@@ -39,9 +39,15 @@ public class SecurityConfig {
                 .authorizeHttpRequests(
         (authorizeHttpRequests) ->
                         authorizeHttpRequests
-                                .requestMatchers("/", "/**").permitAll()
-                                .requestMatchers("/my-page/**").authenticated()
-                                .anyRequest().permitAll()
+                                .requestMatchers(
+                                        "/signup",
+                                        "/photo/list",
+                                        "/photo/like/**",
+                                        "/meeting/list",
+                                        "/meeting/info",
+                                        "/people-count"
+                                        ).permitAll()
+                                .anyRequest().authenticated()
                 )
                 .formLogin(
         formLogin -> formLogin.disable())
@@ -56,7 +62,6 @@ public class SecurityConfig {
         logout ->
                         logout.logoutUrl("/logout")
                                 .logoutSuccessUrl("/"));
-        // http.apply(MyCustomDsl.customDsl());
         return http.getOrBuild();
     }
 
