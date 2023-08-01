@@ -12,16 +12,16 @@ import org.springframework.transaction.annotation.Transactional;
 @Component("userDetailsService")
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
-
 public class CustomUserDetailsService implements UserDetailsService {
 
     private final UserRepository userRepository;
 
     @Override
     public PrincipalDetails loadUserByUsername(String userId) throws UsernameNotFoundException {
-        PrincipalDetails principalDetails = new PrincipalDetails(userRepository.findByUserStrId(userId));
-        return principalDetails;
+        return new PrincipalDetails(userRepository.findByUserStrId(userId));
     }
+
+
 
 
 }

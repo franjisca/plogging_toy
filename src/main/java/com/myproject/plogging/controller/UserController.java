@@ -44,7 +44,6 @@ public class UserController {
     public UserDataDto login(@RequestBody LoginDto loginDto, HttpServletResponse res) {
         User loginUser = userService.login(loginDto);
 
-        res.addHeader("accessToken", "hi");
         return new UserDataDto().builder()
                 .userId(loginUser.getUserId())
                 .username(loginUser.getUsername())

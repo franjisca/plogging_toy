@@ -1,4 +1,4 @@
-package com.myproject.plogging.dto;
+package com.myproject.plogging.dto.common;
 
 
 import lombok.Data;

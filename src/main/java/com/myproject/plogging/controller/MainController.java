@@ -1,7 +1,7 @@
 package com.myproject.plogging.controller;
 
 
-import com.myproject.plogging.dto.TotalDto;
+import com.myproject.plogging.dto.common.TotalDto;
 import com.myproject.plogging.service.PhotoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
