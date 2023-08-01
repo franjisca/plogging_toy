@@ -30,7 +30,6 @@ public class AuthController {
     @PostMapping("/authenticate")
     public ResponseEntity<TokenDto> authorize(@RequestBody LoginDto loginDto) {
 
-        System.out.println("실행됨");
         UsernamePasswordAuthenticationToken authenticationToken =
                 new UsernamePasswordAuthenticationToken(loginDto.getUserId(), loginDto.getPassword());
 

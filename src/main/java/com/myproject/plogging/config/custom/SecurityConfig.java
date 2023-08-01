@@ -32,13 +32,18 @@ import org.springframework.web.servlet.handler.HandlerMappingIntrospector;
 @RequiredArgsConstructor
 @EnableMethodSecurity
 public class SecurityConfig {
-    private final PrincipalOauth2UserService principleOauth2UserService;
+
+    //private final PrincipalOauth2UserService principleOauth2UserService;
 
     private final TokenProvider tokenProvider;
     private final CorsFilter corsFilter;
     private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
     private final JwtAccessDeniedHandler jwtAccessDeniedHandler;
 
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws  Exception {
@@ -54,7 +59,7 @@ public class SecurityConfig {
                 .authenticationEntryPoint(jwtAuthenticationEntryPoint)
                 )
 
-                // .cors(cors -> cors.disable())
+                .cors(cors -> cors.disable())
 
                 .sessionManagement(httpSecuritySessionManagementConfigurer ->
                         httpSecuritySessionManagementConfigurer
@@ -71,7 +76,7 @@ public class SecurityConfig {
                                        "/meeting/list",
                                        "/meeting/info",
                                        "/people-count",
-                                       "/authenticate",
+                                       "/api/authenticate",
                                        "/login").permitAll()
                                 .anyRequest().authenticated()
                 )
@@ -88,7 +93,7 @@ public class SecurityConfig {
          logout ->
                          logout.logoutUrl("/logout")
                                  .logoutSuccessUrl("/"))*/
-                //.headers(headers -> headers.frameOptions(options -> options.disable()))
+                .headers(headers -> headers.frameOptions(options -> options.disable()))
 
                 .apply(new JwtSecurityConfig(tokenProvider));
 

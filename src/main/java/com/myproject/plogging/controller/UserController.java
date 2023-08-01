@@ -2,7 +2,10 @@ package com.myproject.plogging.controller;
 
 
 import com.myproject.plogging.config.auth.PrincipalDetails;
+import com.myproject.plogging.config.jwt.JwtFilter;
+import com.myproject.plogging.config.jwt.TokenProvider;
 import com.myproject.plogging.domain.User;
+import com.myproject.plogging.dto.common.TokenDto;
 import com.myproject.plogging.dto.user.LoginDto;
 import com.myproject.plogging.dto.user.UserDataDto;
 import com.myproject.plogging.dto.user.UserIdDto;
@@ -12,13 +15,18 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.resource.HttpResource;
 
-import java.net.http.HttpHeaders;
 import java.net.http.HttpResponse;
 import java.util.UUID;
 
@@ -28,6 +36,10 @@ import java.util.UUID;
 public class UserController {
 
     private final UserService userService;
+
+    private final TokenProvider tokenProvider;
+    private final AuthenticationManagerBuilder authenticationManagerBuilder;
+
 
     @GetMapping("/login-test")
     public String test(@AuthenticationPrincipal PrincipalDetails details) {
@@ -40,7 +52,7 @@ public class UserController {
         return userService.signup(user);
     }
 
-    @PostMapping("/login")
+    @PostMapping("/login2")
     public UserDataDto login(@RequestBody LoginDto loginDto, HttpServletResponse res) {
         User loginUser = userService.login(loginDto);
 
@@ -53,6 +65,23 @@ public class UserController {
                 .phone(loginUser.getPhone())
                 .address(loginUser.getAddress())
                 .build();
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<TokenDto> authorize(@RequestBody LoginDto loginDto) {
+
+        UsernamePasswordAuthenticationToken authenticationToken =
+                new UsernamePasswordAuthenticationToken(loginDto.getUserId(), loginDto.getPassword());
+
+        Authentication authentication = authenticationManagerBuilder.getObject().authenticate(authenticationToken);
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+
+        String jwt = tokenProvider.createToken(authentication);
+
+        org.springframework.http.HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.add(JwtFilter.AUTHORIZATION_HEADER, "Bearer " + jwt);
+
+        return new ResponseEntity<>(new TokenDto(jwt), httpHeaders, HttpStatus.OK);
     }
 
     @GetMapping("/find-id/{userNo}")
