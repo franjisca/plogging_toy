@@ -1,17 +1,15 @@
 package com.myproject.plogging.config.oauth;
 
 
-import com.myproject.plogging.config.custom.CustomBcryptEncoder;
 import com.myproject.plogging.config.auth.PrincipalDetails;
+import com.myproject.plogging.config.custom.CustomBcryptEncoder;
 import com.myproject.plogging.config.oauth.provider.GoogleUserInfo;
 import com.myproject.plogging.config.oauth.provider.Oauth2UserInfo;
 import com.myproject.plogging.domain.User;
 import com.myproject.plogging.repository.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
 import org.springframework.security.oauth2.core.OAuth2AuthenticationException;

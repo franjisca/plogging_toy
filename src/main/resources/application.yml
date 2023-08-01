@@ -11,6 +11,7 @@ server:
       maxRequestSize: 50MB
 
 spring:
+
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/plogging?serverTimezone=Asia/Seoul
@@ -26,3 +27,12 @@ spring:
       hibernate:
         format_sql: true
         dialect: org.hibernate.dialect.MySQL8Dialect
+
+jwt:
+  header: Authorization
+  secret: 7JWI64WV7ZWY7IS47JqUIOyggOuKlCDsp4DquIggand0IOqzteu2gOykkeyeheuLiOuLpA==7JWI64WV7ZWY7IS47JqUIOyggOuKlCDsp4DquIggand0IOqzteu2gOykkeyeheuLiOuLpA==
+  token-validity-in-seconds: 86400
+
+logging:
+  level:
+    me.j1yeon: DEBUG

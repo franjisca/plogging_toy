@@ -1,7 +1,6 @@
 package com.myproject.plogging.service;
 
 
-import com.myproject.plogging.config.custom.CustomBcryptEncoder;
 import com.myproject.plogging.config.auth.PrincipalDetails;
 import com.myproject.plogging.domain.User;
 import com.myproject.plogging.dto.user.LoginDto;
@@ -13,16 +12,17 @@ import com.myproject.plogging.repository.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
-public class UserService implements UserDetailsService {
+public class UserService{
     private final UserRepository userRepository;
 
-    private final CustomBcryptEncoder bcryptEncoder;
+    private final PasswordEncoder bcryptEncoder;
 
     @Transactional
     public User signup(User user) {
@@ -91,14 +91,6 @@ public class UserService implements UserDetailsService {
 
         return user;
     }
-
-
-    @Override
-    public PrincipalDetails loadUserByUsername(String userId) throws UsernameNotFoundException {
-        PrincipalDetails principalDetails = new PrincipalDetails(userRepository.findByUserStrId(userId));
-        return principalDetails;
-    }
-
 
     public UserDataDto getMyInfo(String userId){
         User findUser = userRepository.findByUserStrId(userId);
