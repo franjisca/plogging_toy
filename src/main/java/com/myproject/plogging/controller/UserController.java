@@ -11,6 +11,7 @@ import com.myproject.plogging.dto.user.UserDataDto;
 import com.myproject.plogging.dto.user.UserIdDto;
 import com.myproject.plogging.dto.user.UserInfoChangeDto;
 import com.myproject.plogging.service.UserService;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -94,4 +95,9 @@ public class UserController {
         return userService.findByUserNo(userNo);
     }
 
+
+    @GetMapping("/logout")
+    public void logout(HttpServletRequest request) {
+        log.info("logout 요청이 들어옴");
+    }
 }

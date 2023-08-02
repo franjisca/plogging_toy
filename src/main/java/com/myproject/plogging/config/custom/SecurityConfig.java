@@ -99,7 +99,7 @@ public class SecurityConfig {
                          logout.logoutUrl("/logout")
                                  .logoutSuccessUrl("/"))*/
                 //.headers(headers -> headers.frameOptions(options -> options.disable()))
-
+                .logout(logout -> logout.logoutUrl("/logout"))
                 .apply(new JwtSecurityConfig(tokenProvider));
 
 
