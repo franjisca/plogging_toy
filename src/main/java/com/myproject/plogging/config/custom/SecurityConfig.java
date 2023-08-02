@@ -7,6 +7,7 @@ import com.myproject.plogging.config.jwt.JwtSecurityConfig;
 import com.myproject.plogging.config.jwt.TokenProvider;
 import com.myproject.plogging.config.oauth.PrincipalOauth2UserService;
 import com.myproject.plogging.repository.user.UserRepository;
+import com.myproject.plogging.service.CustomUserDetailsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
@@ -17,10 +18,13 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.RememberMeServices;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.authentication.rememberme.TokenBasedRememberMeServices;
 import org.springframework.security.web.servlet.util.matcher.MvcRequestMatcher;
 import org.springframework.web.cors.CorsUtils;
 import org.springframework.web.filter.CorsFilter;
@@ -77,6 +81,7 @@ public class SecurityConfig {
                                        "/meeting/info",
                                        "/people-count",
                                        "/api/authenticate",
+                                       "/meeting/info/**",
                                        "/login").permitAll()
                                 .anyRequest().authenticated()
                 )
@@ -93,7 +98,7 @@ public class SecurityConfig {
          logout ->
                          logout.logoutUrl("/logout")
                                  .logoutSuccessUrl("/"))*/
-                .headers(headers -> headers.frameOptions(options -> options.disable()))
+                //.headers(headers -> headers.frameOptions(options -> options.disable()))
 
                 .apply(new JwtSecurityConfig(tokenProvider));
 

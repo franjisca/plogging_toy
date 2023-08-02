@@ -18,6 +18,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.core.Authentication;
@@ -26,6 +27,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.resource.HttpResource;
+import jakarta.validation.Valid;
 
 import java.net.http.HttpResponse;
 import java.util.UUID;
@@ -41,6 +43,7 @@ public class UserController {
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
 
 
+
     @GetMapping("/login-test")
     public String test(@AuthenticationPrincipal PrincipalDetails details) {
         System.out.println("principal details: "  + details);
@@ -53,7 +56,7 @@ public class UserController {
     }
 
     @PostMapping("/login2")
-    public UserDataDto login(@RequestBody LoginDto loginDto, HttpServletResponse res) {
+    public UserDataDto login(@Valid @RequestBody LoginDto loginDto, HttpServletResponse res) {
         User loginUser = userService.login(loginDto);
 
         return new UserDataDto().builder()
@@ -73,7 +76,9 @@ public class UserController {
         UsernamePasswordAuthenticationToken authenticationToken =
                 new UsernamePasswordAuthenticationToken(loginDto.getUserId(), loginDto.getPassword());
 
+        log.info("authenticationToken: {}", authenticationToken);
         Authentication authentication = authenticationManagerBuilder.getObject().authenticate(authenticationToken);
+
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
         String jwt = tokenProvider.createToken(authentication);
@@ -88,6 +93,5 @@ public class UserController {
     public UserIdDto findUserId(@PathVariable("userNo") Long userNo) {
         return userService.findByUserNo(userNo);
     }
-
 
 }
