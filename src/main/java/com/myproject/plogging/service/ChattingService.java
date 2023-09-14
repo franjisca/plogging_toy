@@ -6,6 +6,7 @@ import com.myproject.plogging.domain.User;
 import com.myproject.plogging.dto.chatting.ChatTextDataDto;
 import com.myproject.plogging.dto.chatting.ChattingInfoDto;
 import com.myproject.plogging.dto.chatting.TextDto;
+import com.myproject.plogging.exception.FormNotCorrectException;
 import com.myproject.plogging.exception.UserNotFoundException;
 import com.myproject.plogging.repository.chatting.ChattingRepository;
 import com.myproject.plogging.repository.chatting.text.ChatTextRepository;
@@ -55,6 +56,9 @@ public class ChattingService {
         User findUser = userRepository.findByUserStrId(userId);
 
         if(findUser == null) throw new UserNotFoundException("유저 정보를 찾을 수 없습니다.");
+
+
+        if(textDto.getMessages().isEmpty()) throw new FormNotCorrectException("빈 문자열은 입력할 수 없습니다.");
 
         textRepository.save(
                 ChatText.builder()

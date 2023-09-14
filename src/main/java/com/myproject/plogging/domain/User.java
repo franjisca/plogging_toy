@@ -75,4 +75,10 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<ChatText> chatTextsList = new ArrayList<>();
 
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "user")
+    private List<Authorities> authList = new ArrayList<>();
+
+
 }

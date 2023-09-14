@@ -82,8 +82,6 @@ public class MeetingService {
 
         log.info("meeting number order: {}", saveMeeting.getId());
 
-        chattingRepository.save(new Chatting(meeting));
-
         return saveMeeting;
     }
 
@@ -102,8 +100,7 @@ public class MeetingService {
                 .two(meeting.getTwo())
                 .three(meeting.getThree())
                 .four(meeting.getFour())
-                .build()
-                ;
+                .build();
     }
 
     @Transactional
@@ -118,7 +115,7 @@ public class MeetingService {
             meeting.enjoyMeeting(user.getId());
         }
 
-        throw new IllegalArgumentException("already exist.");
+        throw new IllegalArgumentException("이미 참여중인 모임입니다.");
     }
 
     @Transactional
@@ -128,6 +125,7 @@ public class MeetingService {
         if(user == null) {
             throw new UserNotFoundException("유저 정보를 찾을 수 없습니다.");
         }
+
         Meeting meeting = meetingRepository.findById(meetingId).orElseThrow(IllegalArgumentException::new);
 
         meeting.leaveMeeting(user.getId());
@@ -142,6 +140,9 @@ public class MeetingService {
     public List<BeforeListDto> myBeforeList(String userId) {
         User user = userRepository.findByUserStrId(userId);
 
+        if(user == null) {
+            throw new UserNotFoundException("사용자를 찾을 수 없습니다.");
+        }
         return beforeListRepository.myBeforeList(user.getId());
     }
 }
