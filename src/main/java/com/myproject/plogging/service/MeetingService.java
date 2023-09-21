@@ -79,6 +79,7 @@ public class MeetingService {
 
 
         Meeting saveMeeting = meetingRepository.save(meeting);
+        chattingRepository.save( new Chatting(saveMeeting));
 
         log.info("meeting number order: {}", saveMeeting.getId());
 
