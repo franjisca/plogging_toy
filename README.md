@@ -13,6 +13,7 @@ https://spiky-shoulder-7b9.notion.site/ToyProject-plogging-79a4abfa703344dd95726
 
 
 ### 🖼️ Main page
+
 <img src="https://velog.velcdn.com/images/hanj1yeon/post/c8dc10a6-ae9c-4061-aad8-c3e1f4502537/image.gif"/>
 
 ### 💻 Used
