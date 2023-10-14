@@ -76,7 +76,7 @@ public class SecurityConfig {
                                .requestMatchers(
                                        "/signup",
                                        "/photo/list",
-                                       "/photo/like",
+                                       "/photo/like/*",
                                        "/meeting/list",
                                        "/meeting/info",
                                        "/people-count",
