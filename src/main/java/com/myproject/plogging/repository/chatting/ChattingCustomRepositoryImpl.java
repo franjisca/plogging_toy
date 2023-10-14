@@ -31,14 +31,13 @@ public class ChattingCustomRepositoryImpl implements ChattingCustomRepository{
                 ).from(chatting).join(meeting).on(meeting.id.eq(chatting.meeting.id))
                 .where(
                         meeting.user.id.eq(id)
-                        .or(
-                        meeting.two.eq(id)
-                        .or(
-                        meeting.three.eq(id)
-                        .or(
-                        meeting.four.eq(id)))))
+                                .or(meeting.two.eq(id))
+                                .or(meeting.three.eq(id))
+                                .or(meeting.four.eq(id))
+                )
                 .fetch();
 
+        System.out.println("meeting list: " + data);
         return data.stream().map(
                 d -> ChattingInfoDto.builder()
                         .chatting_id(d.get(chatting.id))
