@@ -31,4 +31,7 @@ public class Chatting {
     public Chatting(Meeting meeting) {
         this.meeting = meeting;
     }
+
+
+
 }
