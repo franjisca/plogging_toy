@@ -36,3 +36,11 @@ jwt:
 logging:
   level:
     me.j1yeon: DEBUG
+
+popbill:
+  linkId: TESTER
+  secretKey: SwWxqU+0TErBXy/9TVjIPEnI0VTUMMSQZtJf3Ed8q3I=
+  isTest: true
+  isIpRestrictOnOff: true
+  useStaticIp: false
+  useLocalTimeYn: true
