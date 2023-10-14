@@ -35,6 +35,10 @@ dependencies {
 	implementation group: 'com.auth0', name: 'java-jwt', version: '4.4.0'
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
 
+
+	//POPBiLL
+	implementation 'kr.co.linkhub:popbill-spring-boot-starter:1.9.2'
+
 	// querydsl
 	//querydsl
 	implementation 'com.querydsl:querydsl-jpa:5.0.0:jakarta'
