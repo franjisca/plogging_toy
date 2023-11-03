@@ -43,8 +43,6 @@ jwt:
   secret: ${jwt.secret}
   token-validity-in-seconds: 86400
 
-
-
 logging:
   level:
     me.j1yeon: DEBUG
