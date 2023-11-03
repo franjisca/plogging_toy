@@ -13,6 +13,8 @@ import com.myproject.plogging.repository.beforelist.BeforeListRepository;
 import com.myproject.plogging.repository.chatting.ChattingRepository;
 import com.myproject.plogging.repository.meeting.MeetingRepository;
 import com.myproject.plogging.repository.user.UserRepository;
+import com.myproject.plogging.util.MailService;
+import jakarta.annotation.Resource;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -37,6 +39,9 @@ public class MeetingService {
     private final ChattingRepository chattingRepository;
 
     private final BeforeListRepository beforeListRepository;
+
+    private final MailService mailService;
+
 
     public List<MeetingInfoDto> meetingList() {
 
@@ -83,6 +88,9 @@ public class MeetingService {
 
         log.info("meeting number order: {}", saveMeeting.getId());
 
+        mailService.whenEnjoyMeeting(user, saveMeeting);
+
+
         return saveMeeting;
     }
 
@@ -115,6 +123,10 @@ public class MeetingService {
             //더티체킹
             meeting.enjoyMeeting(user.getId());
         }
+
+        Meeting meeting = meetingRepository.findById(meetingNo).orElseThrow(IllegalArgumentException::new);
+
+        mailService.whenEnjoyMeeting(user, meeting);
 
         throw new IllegalArgumentException("이미 참여중인 모임입니다.");
     }
