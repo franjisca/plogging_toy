@@ -40,7 +40,7 @@ spring:
 
 jwt:
   header: Authorization
-  secret: 7JWI64WV7ZWY7IS47JqUIOyggOuKlCDsp4DquIggand0IOqzteu2gOykkeyeheuLiOuLpA==7JWI64WV7ZWY7IS47JqUIOyggOuKlCDsp4DquIggand0IOqzteu2gOykkeyeheuLiOuLpA==
+  secret: ${jwt.secret}
   token-validity-in-seconds: 86400
 
 
