@@ -88,7 +88,7 @@ public class MeetingService {
 
         log.info("meeting number order: {}", saveMeeting.getId());
 
-        mailService.whenEnjoyMeeting(user, saveMeeting);
+        mailService.whenEnjoyMeeting(user, saveMeeting, true);
 
 
         return saveMeeting;
@@ -123,7 +123,7 @@ public class MeetingService {
             Meeting meeting = meetingRepository.findById(meetingNo).orElseThrow(IllegalArgumentException::new);
             //더티체킹
             meeting.enjoyMeeting(user.getId());
-            mailService.whenEnjoyMeeting(user, meeting);
+            mailService.whenEnjoyMeeting(user, meeting, false);
         }
 
 
