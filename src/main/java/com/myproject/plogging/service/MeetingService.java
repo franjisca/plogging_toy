@@ -119,14 +119,14 @@ public class MeetingService {
 
         boolean continueProcess = meetingRepository.alreadyEnjoyed(user.getId(), meetingNo);
 
+        log.info("flag: {}", continueProcess);
+
         if(!continueProcess){
             Meeting meeting = meetingRepository.findById(meetingNo).orElseThrow(IllegalArgumentException::new);
             //더티체킹
             meeting.enjoyMeeting(user.getId());
             mailService.whenEnjoyMeeting(user, meeting, false);
         }
-
-
 
         throw new IllegalArgumentException("이미 참여중인 모임입니다.");
     }
@@ -156,6 +156,7 @@ public class MeetingService {
         if(user == null) {
             throw new UserNotFoundException("사용자를 찾을 수 없습니다.");
         }
+
         return beforeListRepository.myBeforeList(user.getId());
     }
 }

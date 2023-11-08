@@ -3,13 +3,18 @@ package com.myproject.plogging.util;
 
 import com.myproject.plogging.domain.Meeting;
 import com.myproject.plogging.domain.User;
+import jakarta.mail.Message;
+import jakarta.mail.MessagingException;
+import jakarta.mail.internet.MimeMessage;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMailMessage;
+import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
+import org.thymeleaf.spring6.SpringTemplateEngine;
 
 @RequiredArgsConstructor
 @Slf4j
@@ -18,6 +23,9 @@ public class MailService {
 
     private final JavaMailSender javaMailSender;
 
+    private final SpringTemplateEngine springTemplateEngine;
+
+    @Async
     public void whenEnjoyMeeting(User user, Meeting meeting, boolean flag){
 
         // 메시지 객체 생성
@@ -38,6 +46,15 @@ public class MailService {
                 "즐거운 모임과 더 나은 지구를 위한 실천을 응원합니다!");
 
         javaMailSender.send(message);
+
+    }
+
+
+
+    // send
+    @Async
+    public void whenLeaveMeeting(Meeting meeting, User user){
+
 
     }
 
