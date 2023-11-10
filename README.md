@@ -22,9 +22,15 @@ https://spiky-shoulder-7b9.notion.site/ToyProject-plogging-79a4abfa703344dd95726
 
 ![](https://velog.velcdn.com/images/hanj1yeon/post/8e6b5b60-1f62-43dd-83e4-8ede91cbc82f/image.gif)
 
-### ⚒️ 추가된 기능 - 2023.11.03
+### ⚒️ 추가된 기능 
+
+####  2023.11.03
 ![](https://velog.velcdn.com/images/hanj1yeon/post/2cf466a6-75b0-4fa5-8cfb-93194e8ee262/image.png)
 - 간단한 메일링 서비스를 구현하였습니다. 추후 html 형태로 바꾸고 메일 서비스를 제공할 예정입니다.
+
+#### 2023.11.10
+![](https://velog.velcdn.com/images/hanj1yeon/post/73b0a7a0-65b7-4130-87b3-589aaa838dde/image.png)
+- 모임 장소 검색 api를 추가하여 더 쉽게 장소를 입력할 수 있도록 했습니다. 
 
 ### 💻 Used
 <img src="https://img.shields.io/badge/SPRINGBOOT-6DB33F?style=for-the-badge&logo=springboot&logoColor=white"/>
