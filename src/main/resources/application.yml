@@ -37,6 +37,12 @@ spring:
           auth: true
           starttls:
             enable: true
+  batch:
+    job:
+      name: ${job.name:likesDataJob}
+      enabled: true
+    jdbc:
+      initialize-schema: always
 
 jwt:
   header: Authorization
