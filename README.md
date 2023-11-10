@@ -24,7 +24,7 @@ https://spiky-shoulder-7b9.notion.site/ToyProject-plogging-79a4abfa703344dd95726
 
 ### ⚒️ 추가된 기능 - 2023.11.03
 ![](https://velog.velcdn.com/images/hanj1yeon/post/2cf466a6-75b0-4fa5-8cfb-93194e8ee262/image.png)
-- 간단한 메일링 서비스를 구현하였습니다. 추후 html 형태로 바꾸고 해당 모임 링크까지 함께 작성하여 같이 메일 서비스를 제공할 예정입니다.
+- 간단한 메일링 서비스를 구현하였습니다. 추후 html 형태로 바꾸고 메일 서비스를 제공할 예정입니다.
 
 ### 💻 Used
 <img src="https://img.shields.io/badge/SPRINGBOOT-6DB33F?style=for-the-badge&logo=springboot&logoColor=white"/>
