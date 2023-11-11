@@ -6,7 +6,7 @@ server:
       enabled: true
       force: true
     multipart:
-      location: /Users/hanjiyeon/Desktop/문서폴더/project_front/toy/public/upload_image
+      location: ${image.locaiton}
       maxFileSize: 100MB
       maxRequestSize: 50MB
 
