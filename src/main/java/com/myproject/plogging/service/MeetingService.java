@@ -119,16 +119,17 @@ public class MeetingService {
 
         boolean continueProcess = meetingRepository.alreadyEnjoyed(user.getId(), meetingNo);
 
-        log.info("flag: {}", continueProcess);
+
+
 
         if(!continueProcess){
             Meeting meeting = meetingRepository.findById(meetingNo).orElseThrow(IllegalArgumentException::new);
             //더티체킹
             meeting.enjoyMeeting(user.getId());
             mailService.whenEnjoyMeeting(user, meeting, false);
+        } else {
+            throw new IllegalArgumentException("이미 참여중인 모임입니다.");
         }
-
-        throw new IllegalArgumentException("이미 참여중인 모임입니다.");
     }
 
     @Transactional
