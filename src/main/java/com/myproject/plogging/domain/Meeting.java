@@ -53,10 +53,10 @@ public class Meeting {
     @OneToMany(mappedBy = "meeting")
     private List<Chatting> chattingList = new ArrayList<>();
 
-    public void enjoyMeeting(Long id){
-        if(two == null && two != id) this.two = id;
-        else if(three == null && three != id && two != id && four != id) this.three = id;
-        else if(four == null && four != id && two != id && three != id) this.four = id;
+    public void enjoyMeeting(Long userNo){
+        if(two == null && two != userNo) this.two = userNo;
+        else if(three == null && three != userNo&& two != userNo && four != userNo) this.three = userNo;
+        else if(four == null && four != userNo && two != userNo && three != userNo) this.four = userNo;
     }
 
     public void leaveMeeting(Long id){
