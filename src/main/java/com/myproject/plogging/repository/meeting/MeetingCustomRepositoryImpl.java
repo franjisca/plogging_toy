@@ -27,11 +27,14 @@ public class MeetingCustomRepositoryImpl implements MeetingCustomRepository{
 
     @Override
     public boolean alreadyEnjoyed(Long userNo, Long meetingNo) {
-        /*select * from meetings where meeting_id = 1 and two = 10 or three = 10 or four = 10;*/
 
-        List<Meeting> list = queryFactory.selectFrom(meeting).where(meeting.id.eq(meetingNo).and(
-                meeting.two.eq(userNo).or(meeting.three.eq(userNo).or(meeting.four.eq(userNo)))
-        )).fetch();
+        List<Meeting> list = queryFactory.selectFrom(meeting)
+                .where(meeting.id.eq(meetingNo)
+                        .and(meeting.two.eq(userNo)
+                                .or(meeting.three.eq(userNo))
+                                .or(meeting.four.eq(userNo)))
+                ).fetch();
+
 
         return list.size() > 0 ? true : false;
     }

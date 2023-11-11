@@ -6,7 +6,7 @@ server:
       enabled: true
       force: true
     multipart:
-      location: /Users/hanjiyeon/Desktop/문서폴더/project_front/toy/public/upload_image
+      location: ${image.locaiton}
       maxFileSize: 100MB
       maxRequestSize: 50MB
 
@@ -37,13 +37,17 @@ spring:
           auth: true
           starttls:
             enable: true
+  batch:
+    job:
+      name: ${job.name:likesDataJob}
+      enabled: true
+    jdbc:
+      initialize-schema: always
 
 jwt:
   header: Authorization
   secret: ${jwt.secret}
   token-validity-in-seconds: 86400
-
-
 
 logging:
   level:

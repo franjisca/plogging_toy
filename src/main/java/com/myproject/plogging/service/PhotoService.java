@@ -32,7 +32,7 @@ public class PhotoService {
 
     private final UserRepository userRepository;
 
-    private final String fileDir = "/Users/hanjiyeon/Desktop/문서폴더/project_front/toy/public/upload_image/";
+    private final String fileDir = "/Users/hanjiyeon/Desktop/plogging_toy_front/public/upload_image/";
 
     @Transactional
     public void uploadFile(String userId, MultipartFile file){
