@@ -1,6 +1,7 @@
 package com.myproject.plogging.batch.likesjob;
 
 
+import com.myproject.plogging.domain.PhotoList;
 import jakarta.persistence.EntityManagerFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.Job;
@@ -14,6 +15,15 @@ import org.springframework.batch.core.repository.JobRepository;
 import org.springframework.batch.core.scope.context.ChunkContext;
 import org.springframework.batch.core.step.builder.StepBuilder;
 import org.springframework.batch.core.step.tasklet.Tasklet;
+import org.springframework.batch.item.ItemProcessor;
+import org.springframework.batch.item.ItemReader;
+import org.springframework.batch.item.ItemWriter;
+import org.springframework.batch.item.database.JpaCursorItemReader;
+import org.springframework.batch.item.database.JpaItemWriter;
+import org.springframework.batch.item.database.JpaPagingItemReader;
+import org.springframework.batch.item.database.builder.JpaCursorItemReaderBuilder;
+import org.springframework.batch.item.database.builder.JpaItemWriterBuilder;
+import org.springframework.batch.item.database.builder.JpaPagingItemReaderBuilder;
 import org.springframework.batch.repeat.RepeatStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -27,7 +37,7 @@ import org.springframework.transaction.TransactionStatus;
 @RequiredArgsConstructor
 public class LikesDataJob {
 
-    EntityManagerFactory em;
+    private final EntityManagerFactory em;
 
     @Bean
     public Job likedDataJob(JobRepository jobRepository){
@@ -56,7 +66,35 @@ public class LikesDataJob {
     @Bean
     public Step likesStep(JobRepository jobRepository, PlatformTransactionManager transactionManager) {
         return new StepBuilder("likesStep", jobRepository)
-                .tasklet(likesTasklet(), transactionManager)
+                .<PhotoList, PhotoList>chunk(100, transactionManager)
+                .reader(dbDataReader())
+                .processor(dbDataProcessor())
+                .writer(dbDataWriter())
+                .build();
+    }
+
+    private JpaItemWriter<PhotoList> dbDataWriter() {
+
+        return new JpaItemWriterBuilder<PhotoList>()
+                .entityManagerFactory(em)
+                .build();
+    }
+
+    private ItemProcessor<PhotoList, PhotoList> dbDataProcessor() {
+
+        return photoList -> {
+            photoList.addLikesCount();
+            return photoList;
+        };
+    }
+
+    private ItemReader<PhotoList> dbDataReader() {
+        return new JpaCursorItemReaderBuilder<PhotoList>()
+                .name("dbReader")
+                .entityManagerFactory(em)
+                .queryString(
+                        "select o from PhotoList o"
+                )
                 .build();
     }
 

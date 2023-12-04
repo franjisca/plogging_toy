@@ -8,6 +8,7 @@ import com.myproject.plogging.config.jwt.TokenProvider;
 import com.myproject.plogging.config.oauth.PrincipalOauth2UserService;
 import com.myproject.plogging.repository.user.UserRepository;
 import com.myproject.plogging.service.CustomUserDetailsService;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
@@ -99,7 +100,9 @@ public class SecurityConfig {
                          logout.logoutUrl("/logout")
                                  .logoutSuccessUrl("/"))*/
                 //.headers(headers -> headers.frameOptions(options -> options.disable()))
-                .logout(logout -> logout.logoutUrl("/logout"))
+                .logout(logout -> logout
+                        .logoutUrl("/logout")
+                )
                 .apply(new JwtSecurityConfig(tokenProvider));
 
 

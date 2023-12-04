@@ -1,6 +1,7 @@
 package com.myproject.plogging.batch.scheduler;
 
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.*;
 import org.springframework.batch.core.launch.JobLauncher;
 import org.springframework.batch.core.repository.JobExecutionAlreadyRunningException;
@@ -13,16 +14,16 @@ import org.springframework.stereotype.Component;
 import java.util.Collections;
 
 @Component
+@RequiredArgsConstructor
 public class BasicScheduler {
 
-    @Autowired
-    private JobLauncher jobLauncher;
+    private final JobLauncher jobLauncher;
 
-    private Job basicJobConfig;
+    private final Job basicJobConfig;
 
     // sec - minute - hour - day of month - month - day of the week
 
-    @Scheduled(cron = "10 * * * * *")
+    @Scheduled(cron = "* 2 * * * *")
     public void BasicJobRun() throws JobInstanceAlreadyCompleteException, JobExecutionAlreadyRunningException, JobParametersInvalidException, JobRestartException {
 
         JobParameters jobParameters = new JobParameters(
@@ -32,7 +33,7 @@ public class BasicScheduler {
         jobLauncher.run(new Job() {
             @Override
             public String getName() {
-                return "basicJobRun";
+                return "likesDataJob";
             }
 
             @Override
