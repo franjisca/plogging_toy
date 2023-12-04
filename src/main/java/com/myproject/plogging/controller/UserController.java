@@ -26,6 +26,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.core.oidc.user.OidcUser;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.resource.HttpResource;
 import jakarta.validation.Valid;
@@ -96,8 +97,12 @@ public class UserController {
     }
 
 
-    @GetMapping("/logout")
-    public void logout(HttpServletRequest request) {
+    @GetMapping("/log-out")
+    public void logout(HttpServletRequest request, HttpServletResponse response) {
         log.info("logout 요청이 들어옴");
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if(auth != null) {
+            new SecurityContextLogoutHandler().logout(request, response, auth);
+        }
     }
 }
