@@ -19,8 +19,10 @@ import org.springframework.batch.item.ItemProcessor;
 import org.springframework.batch.item.ItemReader;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.batch.item.database.JpaCursorItemReader;
+import org.springframework.batch.item.database.JpaItemWriter;
 import org.springframework.batch.item.database.JpaPagingItemReader;
 import org.springframework.batch.item.database.builder.JpaCursorItemReaderBuilder;
+import org.springframework.batch.item.database.builder.JpaItemWriterBuilder;
 import org.springframework.batch.item.database.builder.JpaPagingItemReaderBuilder;
 import org.springframework.batch.repeat.RepeatStatus;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,33 +66,26 @@ public class LikesDataJob {
     @Bean
     public Step likesStep(JobRepository jobRepository, PlatformTransactionManager transactionManager) {
         return new StepBuilder("likesStep", jobRepository)
-                .tasklet(likesTasklet(), transactionManager)
-                .build();
-    }
-
-    @JobScope
-    @Bean
-    public Step dbDataStep(
-            JobRepository jobRepository,
-            PlatformTransactionManager transactionManager
-
-    ) {
-        return new StepBuilder("dbDataStep", jobRepository)
-                .<PhotoList, PhotoList>chunk(100, transactionManager)// 100개 단위 commit,
+                .<PhotoList, PhotoList>chunk(100, transactionManager)
                 .reader(dbDataReader())
                 .processor(dbDataProcessor())
                 .writer(dbDataWriter())
                 .build();
     }
 
-    private ItemWriter<? super PhotoList> dbDataWriter() {
+    private JpaItemWriter<PhotoList> dbDataWriter() {
 
-        return null;
+        return new JpaItemWriterBuilder<PhotoList>()
+                .entityManagerFactory(em)
+                .build();
     }
 
-    private ItemProcessor<? super PhotoList,? extends PhotoList> dbDataProcessor() {
+    private ItemProcessor<PhotoList, PhotoList> dbDataProcessor() {
 
-        return null;
+        return photoList -> {
+            photoList.addLikesCount();
+            return photoList;
+        };
     }
 
     private ItemReader<PhotoList> dbDataReader() {
