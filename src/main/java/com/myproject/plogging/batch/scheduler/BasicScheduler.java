@@ -23,7 +23,7 @@ public class BasicScheduler {
 
     // sec - minute - hour - day of month - month - day of the week
 
-    @Scheduled(cron = "* 2 * * * *")
+    @Scheduled(cron = "* 1 * * * *")
     public void BasicJobRun() throws JobInstanceAlreadyCompleteException, JobExecutionAlreadyRunningException, JobParametersInvalidException, JobRestartException {
 
         JobParameters jobParameters = new JobParameters(
