@@ -60,7 +60,7 @@ public class UserService{
         }
 
         if(dto.getPassword() != null) {
-            user.updatePassword(dto.getNickname());
+            user.updatePassword(dto.getPassword());
         }
 
         if(dto.getEmail() != null) {
