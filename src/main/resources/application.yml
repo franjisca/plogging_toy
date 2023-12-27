@@ -6,7 +6,7 @@ server:
       enabled: true
       force: true
     multipart:
-      location: ${image.locaiton}
+      location: ${image.location}
       maxFileSize: 100MB
       maxRequestSize: 50MB
 
