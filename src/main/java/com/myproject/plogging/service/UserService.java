@@ -59,8 +59,9 @@ public class UserService{
             user.updateNickname(dto.getNickname());
         }
 
-        if(dto.getPassword() != null) {
-            user.updatePassword(dto.getPassword());
+        if(!dto.getPassword().isEmpty()) {
+            System.out.println("getChangePassword: " + dto.getPassword());
+            user.updatePassword(bcryptEncoder.encode(dto.getPassword()));
         }
 
         if(dto.getEmail() != null) {
