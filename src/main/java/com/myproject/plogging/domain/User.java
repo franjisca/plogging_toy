@@ -49,7 +49,7 @@ public class User {
         this.address = address;
     }
 
-    public void updateNickname(String nickname){ this.nickname = nickname;}
+    public void updateNickname(String nickname){this.nickname = nickname;}
     public void updatePassword(String password){ this.password = password;}
     public void updateEmail(String email){ this.email = email;}
     public void updatePhone(String nickname){ this.phone = phone;}
