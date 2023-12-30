@@ -37,7 +37,6 @@ public class ChattingCustomRepositoryImpl implements ChattingCustomRepository{
                 )
                 .fetch();
 
-        System.out.println("meeting list: " + data);
         return data.stream().map(
                 d -> ChattingInfoDto.builder()
                         .chatting_id(d.get(chatting.id))

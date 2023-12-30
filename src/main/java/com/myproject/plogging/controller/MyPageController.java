@@ -57,7 +57,8 @@ public class MyPageController {
     }
 
     @PatchMapping ("/info-change/{userId}")
-    public UserInfoChangeDto infoChange(@PathVariable("userId") String userId, UserInfoChangeDto dto) {
+    public UserInfoChangeDto infoChange(@PathVariable("userId") String userId, @RequestBody UserInfoChangeDto dto) {
+
         return userService.infoChange(userId, dto);
     }
 

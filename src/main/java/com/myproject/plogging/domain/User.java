@@ -38,6 +38,9 @@ public class User {
 
     private String address;
 
+    @Column(columnDefinition = "integer default 0")
+    private Long plasticBagCount;
+
     @Builder
     public User(String userId, String username, String nickname, String password, String email, String phone, String address) {
         this.userId = userId;
@@ -49,7 +52,7 @@ public class User {
         this.address = address;
     }
 
-    public void updateNickname(String nickname){ this.nickname = nickname;}
+    public void updateNickname(String nickname){this.nickname = nickname;}
     public void updatePassword(String password){ this.password = password;}
     public void updateEmail(String email){ this.email = email;}
     public void updatePhone(String nickname){ this.phone = phone;}
