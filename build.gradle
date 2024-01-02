@@ -53,6 +53,12 @@ dependencies {
 	//mail
 	implementation 'org.springframework.boot:spring-boot-starter-mail'
 
+	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-data-redis'
+	implementation 'org.springframework.kafka:spring-kafka'
+
+
+
+
 
 }
 
