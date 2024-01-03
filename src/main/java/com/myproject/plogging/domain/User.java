@@ -39,7 +39,7 @@ public class User {
     private String address;
 
     @Column(columnDefinition = "integer default 0")
-    private Long plasticBagCount;
+    private Integer plasticBagCount;
 
     @Builder
     public User(String userId, String username, String nickname, String password, String email, String phone, String address) {
@@ -50,6 +50,7 @@ public class User {
         this.email = email;
         this.phone = phone;
         this.address = address;
+        this.plasticBagCount = 0;
     }
 
     public void updateNickname(String nickname){this.nickname = nickname;}
@@ -58,6 +59,9 @@ public class User {
     public void updatePhone(String nickname){ this.phone = phone;}
     public void updateAddress(String address){ this.address = address;}
 
+    public void incrementPlasticBagCount(){
+        this.plasticBagCount = plasticBagCount++;
+    }
     @JsonIgnore
     @OneToMany(mappedBy = "user")
     private List<Meeting> meetingList = new ArrayList<>();
