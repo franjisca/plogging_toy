@@ -12,7 +12,7 @@ public class PlasticbagProducer {
     private final KafkaTemplate<String, Long> kafkaTemplate;
 
     public void create(Long userId) {
-        kafkaTemplate.send("plastic_create", userId);
+        kafkaTemplate.send("plastic_bag", userId);
     }
 
 
