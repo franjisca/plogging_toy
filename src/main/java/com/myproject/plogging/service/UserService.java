@@ -9,6 +9,7 @@ import com.myproject.plogging.dto.user.UserIdDto;
 import com.myproject.plogging.dto.user.UserInfoChangeDto;
 import com.myproject.plogging.exception.UserNotFoundException;
 import com.myproject.plogging.repository.user.UserRepository;
+import com.myproject.plogging.repository.user.plasticbag.RedisRepositoryImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -23,6 +24,8 @@ public class UserService{
     private final UserRepository userRepository;
 
     private final PasswordEncoder bcryptEncoder;
+
+    private final RedisRepositoryImpl redisRepository;
 
     @Transactional
     public User signup(User user) {
@@ -93,6 +96,15 @@ public class UserService{
         return user;
     }
 
+    @Transactional
+    public void plasticbacCount(String userId) {
+
+        User user = userRepository.findByUserStrId(userId);
+
+        user.incrementPlasticBagCount();
+
+    }
+
     public UserDataDto getMyInfo(String userId){
         User findUser = userRepository.findByUserStrId(userId);
 
@@ -110,7 +122,6 @@ public class UserService{
     public UserIdDto findByUserNo(Long userNo) {
         return userRepository.findByUserNo(userNo);
     }
-
 
 
 }

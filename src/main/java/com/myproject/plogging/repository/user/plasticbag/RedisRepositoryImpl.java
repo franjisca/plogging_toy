@@ -1,4 +1,4 @@
-package com.myproject.plogging.repository.plasticbag;
+package com.myproject.plogging.repository.user.plasticbag;
 
 
 import lombok.RequiredArgsConstructor;

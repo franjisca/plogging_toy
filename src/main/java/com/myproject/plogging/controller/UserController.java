@@ -44,8 +44,6 @@ public class UserController {
     private final TokenProvider tokenProvider;
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
 
-
-
     @GetMapping("/login-test")
     public String test(@AuthenticationPrincipal PrincipalDetails details) {
         System.out.println("principal details: "  + details);
@@ -104,5 +102,10 @@ public class UserController {
         if(auth != null) {
             new SecurityContextLogoutHandler().logout(request, response, auth);
         }
+    }
+
+    @GetMapping("/total-plasticbag-count")
+    public Long getTotalPlasticCount() {
+        return 100L;
     }
 }
