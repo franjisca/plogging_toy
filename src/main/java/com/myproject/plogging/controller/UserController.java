@@ -16,6 +16,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -44,32 +45,9 @@ public class UserController {
     private final TokenProvider tokenProvider;
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
 
-
-
-    @GetMapping("/login-test")
-    public String test(@AuthenticationPrincipal PrincipalDetails details) {
-        System.out.println("principal details: "  + details);
-        return "성공";
-    }
-
     @PostMapping("/signup")
     public User signup(@RequestBody User user) {
         return userService.signup(user);
-    }
-
-    @PostMapping("/login2")
-    public UserDataDto login(@Valid @RequestBody LoginDto loginDto, HttpServletResponse res) {
-        User loginUser = userService.login(loginDto);
-
-        return new UserDataDto().builder()
-                .userId(loginUser.getUserId())
-                .username(loginUser.getUsername())
-                .nickname(loginUser.getNickname())
-                .password(loginUser.getPassword())
-                .email(loginUser.getEmail())
-                .phone(loginUser.getPhone())
-                .address(loginUser.getAddress())
-                .build();
     }
 
     @PostMapping("/login")
@@ -104,5 +82,15 @@ public class UserController {
         if(auth != null) {
             new SecurityContextLogoutHandler().logout(request, response, auth);
         }
+    }
+
+    @GetMapping("/total-plasticbag-count")
+    public Integer getTotalPlasticCount() {
+        return 100;
+    }
+
+    @GetMapping("/my-bag-count")
+    public Integer getMyPlasticCount(@Param("userId") String userId) {
+        return userService.getMyPlasticCount(userId);
     }
 }

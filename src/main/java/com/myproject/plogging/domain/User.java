@@ -62,6 +62,8 @@ public class User {
     public void incrementPlasticBagCount(){
         this.plasticBagCount = plasticBagCount++;
     }
+
+
     @JsonIgnore
     @OneToMany(mappedBy = "user")
     private List<Meeting> meetingList = new ArrayList<>();
