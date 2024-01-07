@@ -70,7 +70,9 @@ public class SecurityConfig {
                                        "/people-count",
                                        "/api/authenticate",
                                        "/meeting/info/**",
-                                       "/login").permitAll()
+                                       "/login",
+                                       "/total-plasticbag-count"
+                                       ).permitAll()
                                 .anyRequest().authenticated()
                 )
                 .formLogin(
