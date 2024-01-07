@@ -124,4 +124,10 @@ public class UserService{
     }
 
 
+    public Integer getMyPlasticCount(String userId) {
+
+        User user = userRepository.findByUserStrId(userId);
+
+        return user.getPlasticBagCount();
+    }
 }
