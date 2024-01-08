@@ -14,6 +14,9 @@ public class RedisRepositoryImpl {
 
     public Long decrease() {
         return redisTemplate.opsForValue().decrement("plastic_bag");
+    }
 
+    public Integer getCount() {
+        return Integer.parseInt(redisTemplate.opsForValue().get("plastic_bag"));
     }
 }
