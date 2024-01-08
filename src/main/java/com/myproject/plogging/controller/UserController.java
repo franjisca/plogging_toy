@@ -93,4 +93,11 @@ public class UserController {
     public Integer getMyPlasticCount(@Param("userId") String userId) {
         return userService.getMyPlasticCount(userId);
     }
+
+    @GetMapping("/get-plasticbag")
+    public void getPlasticbag(@Param("userId") String userId) {
+        userService.addCountPlasticBag(userId);
+    }
+
+
 }

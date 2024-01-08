@@ -11,12 +11,15 @@ import com.myproject.plogging.exception.UserNotFoundException;
 import com.myproject.plogging.repository.user.UserRepository;
 import com.myproject.plogging.repository.user.plasticbag.RedisRepositoryImpl;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+
+@Slf4j
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
@@ -129,5 +132,11 @@ public class UserService{
         User user = userRepository.findByUserStrId(userId);
 
         return user.getPlasticBagCount();
+    }
+
+    public void addCountPlasticBag(String userId) {
+        log.info("종량제 봉투 기능 요청이 들어옴");
+
+        
     }
 }
