@@ -134,9 +134,25 @@ public class UserService{
         return user.getPlasticBagCount();
     }
 
-    public void addCountPlasticBag(String userId) {
-        log.info("종량제 봉투 기능 요청이 들어옴");
 
-        
+    @Transactional
+    public void addCountPlasticBag(String userId) {
+
+
+        User user = userRepository.findByUserStrId(userId);
+
+        if(redisRepository.getCount() > 0) {
+        redisRepository.decrease();
+        user.incrementPlasticBagCount();
+        } else {
+        throw new IllegalArgumentException("요청을 수행할 수 없습니다.");
+        }
+
+
+    }
+
+
+    public int totalPlasticBag(){
+        return redisRepository.getCount();
     }
 }
