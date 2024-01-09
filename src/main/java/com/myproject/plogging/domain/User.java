@@ -60,7 +60,7 @@ public class User {
     public void updateAddress(String address){ this.address = address;}
 
     public void incrementPlasticBagCount(){
-        this.plasticBagCount = plasticBagCount++;
+        this.plasticBagCount +=1;
     }
 
 
