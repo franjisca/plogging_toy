@@ -71,7 +71,8 @@ public class SecurityConfig {
                                        "/api/authenticate",
                                        "/meeting/info/**",
                                        "/login",
-                                       "/total-plasticbag-count"
+                                       "/total-plasticbag-count",
+                                       "/api/**"
                                        ).permitAll()
                                 .anyRequest().authenticated()
                 )
