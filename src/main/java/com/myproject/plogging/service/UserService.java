@@ -12,6 +12,7 @@ import com.myproject.plogging.repository.user.UserRepository;
 import com.myproject.plogging.repository.user.plasticbag.RedisRepositoryImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -136,6 +137,7 @@ public class UserService{
 
 
     @Transactional
+    @Async
     public void addCountPlasticBag(String userId) {
 
 
