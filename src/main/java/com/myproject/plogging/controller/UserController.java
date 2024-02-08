@@ -20,6 +20,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -94,6 +95,7 @@ public class UserController {
         return userService.getMyPlasticCount(userId);
     }
 
+    @Async
     @GetMapping("/get-plasticbag")
     public void getPlasticbag(@RequestParam("userId") String userId) {
         userService.addCountPlasticBag(userId);
