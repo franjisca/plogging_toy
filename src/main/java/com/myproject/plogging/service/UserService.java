@@ -2,6 +2,7 @@ package com.myproject.plogging.service;
 
 
 import com.myproject.plogging.config.auth.PrincipalDetails;
+import com.myproject.plogging.domain.Marker;
 import com.myproject.plogging.domain.User;
 import com.myproject.plogging.dto.user.LoginDto;
 import com.myproject.plogging.dto.user.UserDataDto;
@@ -18,6 +19,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 
 @Slf4j
@@ -144,10 +147,10 @@ public class UserService{
         User user = userRepository.findByUserStrId(userId);
 
         if(redisRepository.getCount() > 0) {
-        redisRepository.decrease();
-        user.incrementPlasticBagCount();
+            redisRepository.decrease();
+            user.incrementPlasticBagCount();
         } else {
-        throw new IllegalArgumentException("요청을 수행할 수 없습니다.");
+            throw new IllegalArgumentException("요청을 수행할 수 없습니다.");
         }
 
 
@@ -156,5 +159,14 @@ public class UserService{
 
     public int totalPlasticBag(){
         return redisRepository.getCount();
+    }
+
+    public List<Marker> getMarkerList(String userId) {
+
+
+        /* 여기에다 plogging marker list 가져오는 메서드 작성해주기 */
+        User user = userRepository.findByUserStrId(userId);
+
+        return user.getMarkerList();
     }
 }

@@ -4,6 +4,7 @@ package com.myproject.plogging.controller;
 import com.myproject.plogging.config.auth.PrincipalDetails;
 import com.myproject.plogging.config.jwt.JwtFilter;
 import com.myproject.plogging.config.jwt.TokenProvider;
+import com.myproject.plogging.domain.Marker;
 import com.myproject.plogging.domain.User;
 import com.myproject.plogging.dto.common.TokenDto;
 import com.myproject.plogging.dto.user.LoginDto;
@@ -34,6 +35,7 @@ import org.springframework.web.servlet.resource.HttpResource;
 import jakarta.validation.Valid;
 
 import java.net.http.HttpResponse;
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -102,4 +104,8 @@ public class UserController {
     }
 
 
+    @GetMapping("/get-marker")
+    public List<Marker> getMyPloggingMarker(@RequestParam("userId") String userId) {
+        return userService.getMarkerList(userId);
+    }
 }
