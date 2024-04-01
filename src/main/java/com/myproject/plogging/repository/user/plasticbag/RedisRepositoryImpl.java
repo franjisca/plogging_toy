@@ -20,8 +20,6 @@ public class RedisRepositoryImpl {
 
     private final RedisTemplate<String, String> redisTemplate;
 
-    // 여기에 기본적으로 하루에 plastic bag count 100으로 맞춰주는 코드 만들기
-
     private String key = "plastic_bag";
     private String value = "100";
 
