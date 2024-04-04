@@ -10,18 +10,15 @@ import com.myproject.plogging.repository.beforelist.BeforeListRepository;
 import com.myproject.plogging.repository.chatting.ChattingRepository;
 import com.myproject.plogging.repository.meeting.MeetingRepository;
 import com.myproject.plogging.repository.user.UserRepository;
+import com.myproject.plogging.util.FindGeoCode;
 import com.myproject.plogging.util.MailService;
-import jakarta.annotation.Resource;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.sound.midi.Soundbank;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Service
 @RequiredArgsConstructor
@@ -38,6 +35,8 @@ public class MeetingService {
     private final BeforeListRepository beforeListRepository;
 
     private final MailService mailService;
+
+    private final FindGeoCode findGeoCode;
 
 
     public List<MeetingInfoDto> meetingList() {
