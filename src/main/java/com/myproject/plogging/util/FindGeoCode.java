@@ -14,16 +14,11 @@ import java.nio.charset.Charset;
 @Component
 @RequiredArgsConstructor
 public class FindGeoCode {
-
     private final static String MAP_URL = "http://dapi.kakao.com/v2/local/search/address.json?query=";
-
     @Value("${api-key.kakao}")
     private String key;
 
-    public Float[] getGeoData(String address) {
-
-        System.out.println("key: " + key);
-
+    public StringBuffer getGeoData(String address) {
 
         try{
 
@@ -50,7 +45,7 @@ public class FindGeoCode {
             }
 
             // 가져온 값 출력해주기
-            System.out.println(response.toString());
+            System.out.println(response);
 
         }catch (Exception e){
             e.printStackTrace();
