@@ -52,3 +52,6 @@ jwt:
 logging:
   level:
     me.j1yeon: DEBUG
+
+api-key:
+  kakao: ${kakao.key}
