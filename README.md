@@ -35,7 +35,11 @@ https://spiky-shoulder-7b9.notion.site/ToyProject-plogging-79a4abfa703344dd95726
 
 #### 2024.01.09
 ![](https://velog.velcdn.com/images/hanj1yeon/post/b5057116-4db0-4a92-9493-0f31181c9291/image.gif)
-- 종량제 봉투를 얻을 수 있는 기능을 추가하였습니다. 
+- 종량제 봉투를 얻을 수 있는 기능을 추가하였습니다.
+
+#### 2024.04.06
+![](https://velog.velcdn.com/images/hanj1yeon/post/c7d149fc-bbbb-41b0-8b5f-d46776a20767/image.png)
+- 플로깅한 장소들을 기록할 수 있는 마커 기능을 추가하였습니다.
 
 ### 💻 Used
 <img src="https://img.shields.io/badge/SPRINGBOOT-6DB33F?style=for-the-badge&logo=springboot&logoColor=white"/>
