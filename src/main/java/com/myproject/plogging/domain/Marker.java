@@ -3,6 +3,7 @@ package com.myproject.plogging.domain;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.NoArgsConstructor;
 
 @Entity
@@ -19,7 +20,15 @@ public class Marker {
     @JoinColumn(name ="user_no")
     private User user;
 
-    private Integer lotd;
+    private String lotd;
 
-    private Integer latd;
+    private String latd;
+
+
+    @Builder
+    public Marker(User user, String lotd, String latd) {
+        this.user = user;
+        this.lotd = lotd;
+        this.latd = latd;
+    }
 }
