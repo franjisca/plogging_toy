@@ -93,8 +93,11 @@ public class MeetingService {
         //marker service
         Map<String, String> geoData = findGeoCode.getGeoData(dto.getLocation());
 
+
+        if(!(geoData==null)) {
         Marker marker = Marker.builder().user(user).lotd(geoData.get("x")).latd(geoData.get("y")).build();
         markerRepository.save(marker);
+        }
 
         return saveMeeting;
     }
