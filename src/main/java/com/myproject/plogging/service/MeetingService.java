@@ -8,6 +8,7 @@ import com.myproject.plogging.dto.meeting.MeetingInfoDto;
 import com.myproject.plogging.exception.UserNotFoundException;
 import com.myproject.plogging.repository.beforelist.BeforeListRepository;
 import com.myproject.plogging.repository.chatting.ChattingRepository;
+import com.myproject.plogging.repository.marker.MarkerRepository;
 import com.myproject.plogging.repository.meeting.MeetingRepository;
 import com.myproject.plogging.repository.user.UserRepository;
 import com.myproject.plogging.util.FindGeoCode;
@@ -18,6 +19,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -37,6 +39,8 @@ public class MeetingService {
     private final MailService mailService;
 
     private final FindGeoCode findGeoCode;
+
+    private final MarkerRepository markerRepository;
 
 
     public List<MeetingInfoDto> meetingList() {
@@ -86,6 +90,11 @@ public class MeetingService {
 
         mailService.whenEnjoyMeeting(user, saveMeeting, true);
 
+        //marker service
+        Map<String, String> geoData = findGeoCode.getGeoData(dto.getLocation());
+
+        Marker marker = Marker.builder().user(user).lotd(geoData.get("x")).latd(geoData.get("y")).build();
+        markerRepository.save(marker);
 
         return saveMeeting;
     }
