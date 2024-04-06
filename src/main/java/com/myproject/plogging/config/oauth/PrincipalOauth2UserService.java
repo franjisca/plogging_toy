@@ -50,10 +50,8 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
         if(findUser == null){
             User saveUser = new User(userId, username, nickname, "", email, "", "");
 
-            System.out.println("저장할 아이디:" + saveUser);
             userRepository.save(saveUser);
             PrincipalDetails principalDetails = new PrincipalDetails(saveUser, oAuth2User.getAttributes());
-            System.out.println("principal details: " + principalDetails);
 
             return principalDetails;
         }
