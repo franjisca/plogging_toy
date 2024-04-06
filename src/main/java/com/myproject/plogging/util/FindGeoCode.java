@@ -1,6 +1,10 @@
 package com.myproject.plogging.util;
 
 import lombok.RequiredArgsConstructor;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -10,15 +14,18 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.nio.charset.Charset;
+import java.security.Key;
+import java.util.HashMap;
+import java.util.Map;
 
 @Component
 @RequiredArgsConstructor
 public class FindGeoCode {
     private final static String MAP_URL = "http://dapi.kakao.com/v2/local/search/address.json?query=";
-    @Value("${api-key.kakao}")
+     @Value("${api-key.kakao}")
     private String key;
 
-    public StringBuffer getGeoData(String address) {
+    public Map<String, String> getGeoData(String address) {
 
         try{
 
@@ -37,15 +44,15 @@ public class FindGeoCode {
             Charset charset = Charset.forName("UTF-8");
             BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream(), charset));
 
-            String inputLine;
+            String readLine;
             StringBuffer response = new StringBuffer();
 
-            while ((inputLine = br.readLine()) != null) {
-                response.append(inputLine);
+            while ((readLine = br.readLine()) != null) {
+                response.append(readLine);
             }
 
-            // 가져온 값 출력해주기
-            System.out.println(response);
+            return getXyCode(response);
+
 
         }catch (Exception e){
             e.printStackTrace();
@@ -53,6 +60,22 @@ public class FindGeoCode {
 
         return null;
 
+    }
+
+    private Map<String, String> getXyCode(StringBuffer jsonData) throws ParseException {
+
+        Map<String, String> xyMap = new HashMap<>();
+
+        JSONObject obj = (JSONObject) new JSONParser().parse(String.valueOf(jsonData));
+
+        JSONArray xyData = (JSONArray) obj.get("documents");
+
+        JSONObject jsonObject1 =(JSONObject) xyData.get(0);
+
+        xyMap.put("x", (String) jsonObject1.get("x"));
+        xyMap.put("y", (String) jsonObject1.get("y"));
+
+        return xyMap;
     }
 
 }
