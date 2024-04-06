@@ -70,7 +70,6 @@ public class UserService{
         }
 
         if(!dto.getPassword().isEmpty()) {
-            System.out.println("getChangePassword: " + dto.getPassword());
             user.updatePassword(bcryptEncoder.encode(dto.getPassword()));
         }
 
@@ -160,6 +159,8 @@ public class UserService{
     public int totalPlasticBag(){
         return redisRepository.getCount();
     }
+
+
 
     public List<Marker> getMarkerList(String userId) {
 

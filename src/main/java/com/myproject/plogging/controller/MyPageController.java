@@ -4,15 +4,14 @@ package com.myproject.plogging.controller;
 import com.myproject.plogging.domain.BeforeList;
 import com.myproject.plogging.dto.beforelist.BeforeListDto;
 import com.myproject.plogging.dto.chatting.ChattingInfoDto;
+import com.myproject.plogging.dto.marker.MarkerListDto;
 import com.myproject.plogging.dto.meeting.MeetingInfoDto;
 import com.myproject.plogging.dto.photo.PhotoDto;
 import com.myproject.plogging.dto.user.UserDataDto;
 import com.myproject.plogging.dto.user.UserInfoChangeDto;
-import com.myproject.plogging.service.ChattingService;
-import com.myproject.plogging.service.MeetingService;
-import com.myproject.plogging.service.PhotoService;
-import com.myproject.plogging.service.UserService;
+import com.myproject.plogging.service.*;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,6 +19,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/my-page")
+@Slf4j
 public class MyPageController {
 
     private final UserService userService;
@@ -29,6 +29,8 @@ public class MyPageController {
     private final MeetingService meetingService;
 
     private final PhotoService photoService;
+
+    private final MarkerService markerService;
 
 
     @GetMapping("/my-info/{userId}")
@@ -58,7 +60,6 @@ public class MyPageController {
 
     @PatchMapping ("/info-change/{userId}")
     public UserInfoChangeDto infoChange(@PathVariable("userId") String userId, @RequestBody UserInfoChangeDto dto) {
-
         return userService.infoChange(userId, dto);
     }
 
@@ -70,5 +71,11 @@ public class MyPageController {
     @GetMapping("/count/{userId}")
     public Long myPloggingCount(@PathVariable("userId") String userId){
         return photoService.myPloggingCount(userId);
+    }
+
+
+    @GetMapping("/my-marker/{userId}")
+    public List<MarkerListDto> myMarkerList(@PathVariable("userId") String userId) {
+        return markerService.getMyMarkerList(userId);
     }
 }

@@ -94,7 +94,7 @@ public class MeetingService {
         Map<String, String> geoData = findGeoCode.getGeoData(dto.getLocation());
 
 
-        if(!(geoData==null)) {
+        if(geoData.size() != 0) {
         Marker marker = Marker.builder().user(user).lotd(geoData.get("x")).latd(geoData.get("y")).build();
         markerRepository.save(marker);
         }
@@ -135,6 +135,15 @@ public class MeetingService {
             //더티체킹
             meeting.enjoyMeeting(user.getId());
             mailService.whenEnjoyMeeting(user, meeting, false);
+
+            //marker service
+            Map<String, String> geoData = findGeoCode.getGeoData(meeting.getLocation());
+
+            if(geoData.size() != 0){
+                Marker marker = Marker.builder().user(user).lotd(geoData.get("x")).latd(geoData.get("y")).build();
+                markerRepository.save(marker);
+                }
+
         } else {
             throw new IllegalArgumentException("이미 참여중인 모임입니다.");
         }
