@@ -54,7 +54,7 @@ public class Meeting {
     private List<Chatting> chattingList = new ArrayList<>();
 
     public void enjoyMeeting(Long userNo){
-        if(two == null && two != userNo) this.two = userNo;
+        if(two == null && user.getId() != userNo) this.two = userNo;
         else if(three == null && three != userNo&& two != userNo && four != userNo) this.three = userNo;
         else if(four == null && four != userNo && two != userNo && three != userNo) this.four = userNo;
     }

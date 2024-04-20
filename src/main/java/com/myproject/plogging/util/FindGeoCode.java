@@ -22,7 +22,7 @@ import java.util.Map;
 public class FindGeoCode {
     private final static String MAP_URL = "http://dapi.kakao.com/v2/local/search/address.json?query=";
      @Value("${api-key.kakao}")
-    private final String key;
+    private String key;
 
     public Map<String, String> getGeoData(String address) {
 
