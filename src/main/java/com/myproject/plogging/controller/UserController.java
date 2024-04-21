@@ -104,9 +104,4 @@ public class UserController {
     }
 
 
-    @GetMapping("/get-marker")
-    public List<Marker> getMyPloggingMarker(@RequestParam("userId") String userId) {
-        return userService.getMarkerList(userId);
-    }
-
 }
