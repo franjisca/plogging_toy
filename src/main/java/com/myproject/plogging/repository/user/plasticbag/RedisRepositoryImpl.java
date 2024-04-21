@@ -30,10 +30,10 @@ public class RedisRepositoryImpl {
     }
 
     public Long decrease() {
-        return redisTemplate.opsForValue().decrement("plastic_bag");
+        return redisTemplate.opsForValue().decrement(key);
     }
 
     public Integer getCount() {
-        return Integer.parseInt(redisTemplate.opsForValue().get("plastic_bag"));
+        return Integer.parseInt(redisTemplate.opsForValue().get(key));
     }
 }
