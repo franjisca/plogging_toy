@@ -64,7 +64,6 @@ public class UserService{
             throw new IllegalArgumentException("변경할 수 없음");
         }
 
-        // 더티 체킹으로
         if(dto.getNickname() != null) {
             user.updateNickname(dto.getNickname());
         }
