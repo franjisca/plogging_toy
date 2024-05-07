@@ -1,20 +1,15 @@
 package com.myproject.plogging.controller;
 
 
-import com.myproject.plogging.config.auth.PrincipalDetails;
 import com.myproject.plogging.config.jwt.JwtFilter;
 import com.myproject.plogging.config.jwt.TokenProvider;
-import com.myproject.plogging.domain.Marker;
 import com.myproject.plogging.domain.User;
 import com.myproject.plogging.dto.common.TokenDto;
 import com.myproject.plogging.dto.user.LoginDto;
-import com.myproject.plogging.dto.user.UserDataDto;
 import com.myproject.plogging.dto.user.UserIdDto;
-import com.myproject.plogging.dto.user.UserInfoChangeDto;
 import com.myproject.plogging.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.repository.query.Param;
@@ -22,21 +17,12 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Async;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.resource.HttpResource;
-import jakarta.validation.Valid;
-
-import java.net.http.HttpResponse;
-import java.util.List;
-import java.util.UUID;
 
 @RestController
 @RequiredArgsConstructor

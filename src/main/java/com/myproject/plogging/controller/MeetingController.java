@@ -1,11 +1,9 @@
 package com.myproject.plogging.controller;
 
 
-import com.myproject.plogging.domain.Meeting;
 import com.myproject.plogging.dto.meeting.MeetingCreateDto;
 import com.myproject.plogging.dto.meeting.MeetingInfoDto;
 import com.myproject.plogging.service.MeetingService;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 

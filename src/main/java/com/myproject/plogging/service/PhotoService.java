@@ -7,7 +7,6 @@ import com.myproject.plogging.dto.photo.PhotoDto;
 import com.myproject.plogging.exception.UserNotFoundException;
 import com.myproject.plogging.repository.photolist.PhotoListRepository;
 import com.myproject.plogging.repository.user.UserRepository;
-import com.querydsl.jpa.impl.JPAQuery;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
