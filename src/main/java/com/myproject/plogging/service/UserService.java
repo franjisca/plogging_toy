@@ -159,14 +159,4 @@ public class UserService{
         return redisRepository.getCount();
     }
 
-
-
-    public List<Marker> getMarkerList(String userId) {
-
-
-        /* 여기에다 plogging marker list 가져오는 메서드 작성해주기 */
-        User user = userRepository.findByUserStrId(userId);
-
-        return user.getMarkerList();
-    }
 }
