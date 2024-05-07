@@ -2,7 +2,6 @@ package com.myproject.plogging.service;
 
 
 import com.myproject.plogging.config.auth.PrincipalDetails;
-import com.myproject.plogging.domain.Marker;
 import com.myproject.plogging.domain.User;
 import com.myproject.plogging.dto.user.LoginDto;
 import com.myproject.plogging.dto.user.UserDataDto;
@@ -14,13 +13,9 @@ import com.myproject.plogging.repository.user.plasticbag.RedisRepositoryImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Async;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 
 @Slf4j
