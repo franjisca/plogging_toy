@@ -1,30 +1,27 @@
-package com.myproject.plogging.repository.user.plasticbag;
+package com.myproject.plogging.service.plasticbag;
 
 
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 
 
-@Repository
+@Service
 @RequiredArgsConstructor
 @Slf4j
-public class RedisRepositoryImpl {
+public class RedisService {
 
-    private final RedisTemplate<String, String> redisTemplate;
+    private final StringRedisTemplate redisTemplate;
 
     private String key = "plastic_bag";
     private String value = "100";
 
     @Scheduled(fixedDelay = 24 * 60 * 60 * 1000)
-    public void setPlasticBagCountCount() {
+    public void setPlasticBagCount() {
         log.info("- - - plastic bag count reset - - -, {}", LocalDateTime.now());
         redisTemplate.opsForValue().set(key, value);
     }

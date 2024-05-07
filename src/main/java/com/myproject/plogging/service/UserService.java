@@ -9,7 +9,7 @@ import com.myproject.plogging.dto.user.UserIdDto;
 import com.myproject.plogging.dto.user.UserInfoChangeDto;
 import com.myproject.plogging.exception.UserNotFoundException;
 import com.myproject.plogging.repository.user.UserRepository;
-import com.myproject.plogging.repository.user.plasticbag.RedisRepositoryImpl;
+import com.myproject.plogging.service.plasticbag.RedisService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Async;
@@ -27,7 +27,7 @@ public class UserService{
 
     private final PasswordEncoder bcryptEncoder;
 
-    private final RedisRepositoryImpl redisRepository;
+    private final RedisService redisRepository;
 
     @Transactional
     public User signup(User user) {
