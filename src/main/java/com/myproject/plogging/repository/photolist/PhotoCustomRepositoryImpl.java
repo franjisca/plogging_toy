@@ -6,16 +6,12 @@ import com.myproject.plogging.dto.photo.PhotoDto;
 import com.querydsl.core.types.ConstantImpl;
 import com.querydsl.core.types.dsl.DateTemplate;
 import com.querydsl.core.types.dsl.Expressions;
-import com.querydsl.core.types.dsl.StringTemplate;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import static com.myproject.plogging.domain.QPhotoList.photoList;
-import static java.nio.file.attribute.FileTime.from;
 
 @RequiredArgsConstructor
 public class PhotoCustomRepositoryImpl implements PhotoCustomRepository{
