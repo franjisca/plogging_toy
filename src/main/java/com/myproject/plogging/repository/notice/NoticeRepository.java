@@ -1,4 +1,8 @@
 package com.myproject.plogging.repository.notice;
 
-public interface NoticeRepository {
+import com.myproject.plogging.domain.Notice;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+
+public interface NoticeRepository extends JpaRepository<Notice, Long>, NoticeCustomRepository{
 }
