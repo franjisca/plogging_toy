@@ -79,7 +79,7 @@ public class UserController {
     }
 
     @GetMapping("/my-bag-count")
-    public Integer getMyPlasticCount(@Param("userId") String userId) {
+    public Integer getMyPlasticCount(@RequestParam("userId") String userId) {
         return userService.getMyPlasticCount(userId);
     }
 

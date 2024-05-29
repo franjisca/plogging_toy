@@ -43,6 +43,7 @@ public class User {
 
     @Builder
     public User(String userId, String username, String nickname, String password, String email, String phone, String address) {
+        this.plasticBagCount = 0;
         this.userId = userId;
         this.username = username;
         this.nickname = nickname;
@@ -50,7 +51,6 @@ public class User {
         this.email = email;
         this.phone = phone;
         this.address = address;
-        this.plasticBagCount = 0;
     }
 
     public void updateNickname(String nickname){this.nickname = nickname;}
@@ -60,7 +60,7 @@ public class User {
     public void updateAddress(String address){ this.address = address;}
 
     public void incrementPlasticBagCount(){
-        this.plasticBagCount +=1;
+        this.plasticBagCount++;
     }
 
 
