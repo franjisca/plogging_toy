@@ -56,7 +56,7 @@ public class User {
     public void updateNickname(String nickname){this.nickname = nickname;}
     public void updatePassword(String password){ this.password = password;}
     public void updateEmail(String email){ this.email = email;}
-    public void updatePhone(String nickname){ this.phone = phone;}
+    public void updatePhone(String phone){ this.phone = phone;}
     public void updateAddress(String address){ this.address = address;}
 
     public void incrementPlasticBagCount(){
