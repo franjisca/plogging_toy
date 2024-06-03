@@ -81,7 +81,7 @@ public class LikesDataJob {
     }
 
     private ItemProcessor<PhotoList, PhotoList> dbDataProcessor() {
-
+        // redis에 있는 데이터를 addLikesCount하는 방식으로 리팩토링 하기
         return photoList -> {
             photoList.addLikesCount();
             return photoList;
