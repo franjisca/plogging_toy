@@ -55,8 +55,9 @@ public class Meeting {
 
     public void enjoyMeeting(Long userNo){
         if(two == null && user.getId() != userNo) this.two = userNo;
-        else if(three == null && three != userNo&& two != userNo && four != userNo) this.three = userNo;
-        else if(four == null && four != userNo && two != userNo && three != userNo) this.four = userNo;
+        if(three == null && two != null && user.getId() != userNo) this.three = userNo;
+        if(four == null && three != null && user.getId() != userNo) this.four = userNo;
+        else throw new IllegalArgumentException("already enjoyed");
     }
 
     public void leaveMeeting(Long id){
